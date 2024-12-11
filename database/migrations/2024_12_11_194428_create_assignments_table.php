@@ -21,6 +21,7 @@ return new class extends Migration
             $table->uuid('user_id');
             $table->timestamps();
 
+
             $table->foreign('task_id')->references('task_id')->on('tasks')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });

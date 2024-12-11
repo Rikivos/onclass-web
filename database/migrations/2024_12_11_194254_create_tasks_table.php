@@ -19,6 +19,7 @@ return new class extends Migration
             $table->uuid('module_id');
             $table->timestamps();
 
+
             $table->foreign('module_id')->references('module_id')->on('modules')->onDelete('cascade');
         });
     }

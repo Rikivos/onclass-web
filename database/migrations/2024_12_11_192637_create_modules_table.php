@@ -19,6 +19,7 @@ return new class extends Migration
             $table->uuid('attendance_id');
             $table->timestamps();
 
+
             $table->foreign('course_id')->references('course_id')->on('courses')->onDelete('cascade');
             $table->foreign('attendance_id')->references('attendance_id')->on('attendances')->onDelete('cascade');
         });

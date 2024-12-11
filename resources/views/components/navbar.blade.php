@@ -2,7 +2,7 @@
     <div class="container mx-auto flex justify-between items-center">
         <!-- Logo -->
         <div class="flex items-center">
-            <img src="/images/ump.svg" alt="UMP Logo" class="h-8 mr-4">
+            <img src="/images/ump.svg" alt="UMP Logo" class="h-12 mr-6">
         </div>
 
         <!-- Links -->

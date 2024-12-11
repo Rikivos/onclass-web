@@ -42,7 +42,6 @@
                 <div class="border rounded-lg p-4 bg-gray-50">
                     <!-- Kalender Kosong -->
                     <div id="calendar"></div>
-
                 </div>
             </div>
         </div>

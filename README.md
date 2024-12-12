@@ -1,6 +1,4 @@
-# Laravel Sample
-
-> Laravel sample website with content retrieving from [prismic.io](https://prismic.io)
+# Laravel Mentoring Web
 
 This project runs with Laravel version 11.
 

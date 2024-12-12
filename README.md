@@ -27,6 +27,6 @@ Then launch the server:
 php artisan serve
 ```
 
-The Laravel sample project is now up and running! Access it at http://localhost:8000.
+The Laravel mentoring project is now up and running! Access it at http://localhost:8000.
 
 ## Licence

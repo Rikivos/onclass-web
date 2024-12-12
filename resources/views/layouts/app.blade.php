@@ -24,14 +24,3 @@
     </div>
 </body>
 </html>
-
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const profileButton = document.querySelector('.profile-button');
-        const dropdownMenu = document.querySelector('.dropdown-menu');
-
-        profileButton.addEventListener('click', () => {
-            dropdownMenu.classList.toggle('hidden');
-        });
-    });
-</script>

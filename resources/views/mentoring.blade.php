@@ -1,6 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="bg-blue-600 text-white">
+    <div class="container mx-auto flex justify-center items-center py-4 px-6">
+        <a href="/mentoring" class="text-lg font-bold mx-4 underline">Mentoring</a>
+        <a href="/participant" class="text-lg font-bold mx-4">Participants</a>
+    </div>
+</div>
+
 <div class="container mx-auto p-4">
     <!-- Header Section -->
     <div class="text-left mb-8">
@@ -11,13 +18,13 @@
     <div class="bg-white shadow rounded-lg p-6">
         <!-- Expand All Button -->
         <div class="flex justify-between items-center mb-4">
-            <h2 class="text-xl font-semibold"></h2>
-            <button class="text-blue-500 hover:underline">Expand all</button>
+            <button id="expandAllBtn" class="text-blue-500 hover:underline">Expand all</button>
         </div>
 
+        <!-- General Section -->
         <div class="mb-6">
-            <button class="w-full text-left bg-gray-100 p-4 rounded-lg focus:outline-none" onclick="toggleCollapse('general')">
-                <span class="text-gray-500">&#9662;</span>
+            <button class="w-full text-left bg-gray-100 p-4 rounded-lg flex items-center focus:outline-none" onclick="toggleCollapse('general')">
+                <span id="icon-general" class="text-gray-500 mr-2">&#9654;</span>
                 <span class="text-lg font-semibold">General</span>   
             </button>
             <div id="general" class="mt-4 hidden">
@@ -27,8 +34,8 @@
 
         <!-- Sesi 1 -->
         <div class="mb-6">
-            <button class="w-full text-left bg-gray-100 p-4 rounded-lg focus:outline-none" onclick="toggleCollapse('sesi1')">
-                <span class="text-gray-500">&#9662;</span>
+            <button class="w-full text-left bg-gray-100 p-4 rounded-lg flex items-center focus:outline-none" onclick="toggleCollapse('sesi1')">
+                <span id="icon-sesi1" class="text-gray-500 mr-2">&#9654;</span>
                 <span class="text-lg font-semibold">Sesi 1</span>               
             </button>
             <div id="sesi1" class="mt-4 hidden">
@@ -54,10 +61,12 @@
 
         <!-- Sesi 2 -->
         <div class="mb-6">
-            <button class="w-full text-left bg-gray-100 p-4 rounded-lg focus:outline-none" onclick="toggleCollapse('sesi2')">
-                <span class="text-gray-500">&#9662;</span>
+            <button class="w-full text-left bg-gray-100 p-4 rounded-lg flex items-center focus:outline-none" onclick="toggleCollapse('sesi2')">
+                <div id="general" class="mt-4 hidden">
+                    <p>Konten sesi 2 akan ditambahkan di sini.</p>
+                </div>
+                <span id="icon-sesi2" class="text-gray-500 mr-2">&#9654;</span>
                 <span class="text-lg font-semibold">Sesi 2</span>
-                
             </button>
             <div id="sesi2" class="mt-4 hidden">
                 <p>Konten sesi 2 akan ditambahkan di sini.</p>
@@ -69,11 +78,33 @@
 <script>
     function toggleCollapse(id) {
         const section = document.getElementById(id);
+        const icon = document.getElementById(`icon-${id}`);
+
         if (section.classList.contains('hidden')) {
             section.classList.remove('hidden');
+            icon.innerHTML = '&#9662;';
         } else {
             section.classList.add('hidden');
+            icon.innerHTML = '&#9654;';
         }
     }
+
+    document.getElementById('expandAllBtn').addEventListener('click', () => {
+        const sections = ['general', 'sesi1', 'sesi2'];
+        const isAllExpanded = sections.every(id => !document.getElementById(id).classList.contains('hidden'));
+
+        sections.forEach(id => {
+            const section = document.getElementById(id);
+            const icon = document.getElementById(`icon-${id}`);
+
+            if (isAllExpanded) {
+                section.classList.add('hidden');
+                icon.innerHTML = '&#9654;';
+            } else {
+                section.classList.remove('hidden');
+                icon.innerHTML = '&#9662;';
+            }
+        });
+    });
 </script>
 @endsection

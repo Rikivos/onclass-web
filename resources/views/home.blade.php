@@ -34,8 +34,6 @@
             </div>
         </div>
     </div>
-
     <!-- Group List Section -->
-    
 </div>
 @endsection

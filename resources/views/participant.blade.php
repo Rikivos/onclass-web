@@ -27,10 +27,10 @@
                 </tr>
             </thead>
             <tbody>
-                @for ($i = 0; $i < 5; $i++)
+                @for ($i = 0; $i < 10; $i++)
                 <tr class="hover:bg-gray-50">
                     <td class="py-3 px-6 border border-gray-300 flex items-center">
-                        <img src="/images/user  .svg" alt="Avatar" class="w-8 h-8 rounded-full mr-4">
+                        <img src="/images/user.svg" alt="Avatar" class="w-8 h-8 rounded-full mr-4">
                         Wahyu Prihatmoko
                     </td>
                     <td class="py-3 px-6 border border-gray-300">2103040130</td>
@@ -44,11 +44,11 @@
         <div class="flex justify-center mt-4">
             <nav>
                 <ul class="flex items-center space-x-2">
-                    <li><a href="#" class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-100">&lt;</a></li>
-                    <li><a href="#" class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-100">1</a></li>
-                    <li><a href="#" class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-100">2</a></li>
-                    <li><a href="#" class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-100">3</a></li>
-                    <li><a href="#" class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-100">&gt;</a></li>
+                    <li><a href="#" class="px-3 py-2  hover:bg-gray-100">&lt;</a></li>
+                    <li><a href="#" class="px-3 py-2  hover:bg-gray-100">1</a></li>
+                    <li><a href="#" class="px-3 py-2  hover:bg-gray-100">2</a></li>
+                    <li><a href="#" class="px-3 py-2  hover:bg-gray-100">3</a></li>
+                    <li><a href="#" class="px-3 py-2 hover:bg-gray-100">&gt;</a></li>
                 </ul>
             </nav>
         </div>

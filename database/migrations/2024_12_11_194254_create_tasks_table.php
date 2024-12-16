@@ -12,13 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tasks', function (Blueprint $table) {
-            $table->uuid('task_id')->primary();
+            $table->id('task_id');
             $table->string('file');
             $table->text('description');
             $table->dateTime('deadline');
-            $table->uuid('module_id');
+            $table->unsignedBigInteger('module_id');
             $table->timestamps();
-
 
             $table->foreign('module_id')->references('module_id')->on('modules')->onDelete('cascade');
         });

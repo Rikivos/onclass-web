@@ -17,29 +17,29 @@ class UsersTableSeeder extends Seeder
     {
         DB::table('users')->insert([
             [
-                'id' => Str::uuid(),
                 'nim' => '2103040600',
                 'password' => Hash::make('password123'),
                 'name' => 'Mente User',
+                'email' => 'menteuser1@example.com',
                 'role' => 'mente',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'id' => Str::uuid(),
                 'nim' => '2003040001',
                 'password' => Hash::make('123password'),
                 'name' => 'Mentor User',
+                'email' => 'mentoruser1@example.com',
                 'role' => 'mentor',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'id' => Str::uuid(),
                 'nim' => '1234567890',
                 'password' => Hash::make('password123'),
                 'name' => 'LPPI User',
-                'role' => 'lppi',
+                'email' => 'petugasuser@example.com',
+                'role' => 'petugas',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

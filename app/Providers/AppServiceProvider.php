@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Route;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -18,6 +19,9 @@ class AppServiceProvider extends ServiceProvider
         Validator::extend('nim', function ($attribute, $value, $parameters, $validator) {
             return preg_match('/^[0-9]{10}$/', $value); // Misalnya validasi angka 8 digit
         });
+
+        Route::middleware('role')
+            ->group(base_path('routes/web.php'));
     }
 
     /**

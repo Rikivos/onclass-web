@@ -20,6 +20,8 @@ class User extends Authenticatable
     protected $fillable = [
         'nim',
         'password',
+        'role',
+        'nama'
     ];
 
     /**
@@ -29,6 +31,7 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
+        'role',
         'remember_token',
     ];
 
@@ -43,5 +46,16 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Memeriksa apakah pengguna memiliki peran tertentu.
+     *
+     * @param string $role
+     * @return bool
+     */
+    public function hasRole(string $role): bool
+    {
+        return $this->role === $role;
     }
 }

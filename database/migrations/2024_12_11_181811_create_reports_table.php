@@ -17,8 +17,8 @@ return new class extends Migration
             $table->text('description');
             $table->date('upload_date');
             $table->enum('status', ['pending', 'approved', 'rejected']);
-            $table->uuid('meeting_id');
-            $table->uuid('user_id');
+            $table->unsignedBigInteger('meeting_id');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
 
             $table->foreign('meeting_id')->references('meeting_id')->on('meetings')->onDelete('cascade');

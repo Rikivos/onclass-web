@@ -12,13 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('assignments', function (Blueprint $table) {
-            $table->uuid('assignment_id')->primary();
+            $table->id('assignment_id')->primary();
             $table->string('file');
             $table->datetime('assignment_date');
             $table->datetime('deadline');
             $table->enum('status', ['dikumpulkan', 'terlambat', 'kosong']);
-            $table->uuid('task_id');
-            $table->uuid('user_id');
+            $table->unsignedBigInteger('task_id');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
 
 

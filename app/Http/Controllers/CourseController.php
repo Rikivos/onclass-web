@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -33,6 +34,11 @@ class CourseController extends Controller
     {
         $courses = Course::with('mentor:id,name')->get();
 
+        foreach ($courses as $course) {
+            $mentor = User::find($course->user_id);
+            $course->mentor = $mentor;
+        }
+
         return view('home', compact('courses'));
     }
 
@@ -40,7 +46,7 @@ class CourseController extends Controller
     public function show($slug)
     {
         $course = Course::where('course_slug', $slug)->firstOrFail();
-        return view('mentoring', compact('course'));  
+        return view('mentoring', compact('course'));
     }
 
 

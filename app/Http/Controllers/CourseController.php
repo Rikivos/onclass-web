@@ -43,7 +43,6 @@ class CourseController extends Controller
         return view('mentoring', compact('course'));
     }
 
-
     // Method to search
     public function search($slug)
     {

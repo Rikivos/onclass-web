@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
+use Illuminate\Foundation\Auth\User;
 
 class CourseUser extends Pivot
 {
@@ -13,5 +14,5 @@ class CourseUser extends Pivot
         'course_id',
     ];
 
-    // Define the relationship methods, if necessary
+    // Define the relationship methods
 }

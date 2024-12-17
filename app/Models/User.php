@@ -35,11 +35,6 @@ class Users extends Authenticatable
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [
@@ -61,7 +56,12 @@ class Users extends Authenticatable
 
     public function courses()
     {
-        return $this->belongsToMany(Course::class, 'course_user')
+        return $this->belongsToMany(Course::class)
             ->withTimestamps();
+    }
+
+    public function courseUsers()
+    {
+        return $this->hasMany(CourseUser::class);
     }
 }

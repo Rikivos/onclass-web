@@ -12,12 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('attendances', function (Blueprint $table) {
-            $table->uuid('attendance_id')->primary();
+            $table->id('attendance_id');
             $table->dateTime('attendance_open');
             $table->dateTime('deadline');
             $table->dateTime('attendance_time');
             $table->enum('status', ['hadir', 'tidak hadir', 'izin']);
-            $table->uuid('user_id');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

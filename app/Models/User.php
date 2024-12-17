@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Model;
 
 class Users extends Authenticatable
 {
@@ -18,9 +19,9 @@ class Users extends Authenticatable
      */
     protected $fillable = [
         'nim',
-        'name',
         'password',
         'role',
+        'nama'
     ];
 
     /**
@@ -30,6 +31,8 @@ class Users extends Authenticatable
      */
     protected $hidden = [
         'password',
+        'role',
+        'remember_token',
     ];
 
     /**
@@ -40,7 +43,25 @@ class Users extends Authenticatable
     protected function casts(): array
     {
         return [
-            'password' => 'hashed', // Laravel 10+ will hash passwords automatically
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Memeriksa apakah pengguna memiliki peran tertentu.
+     *
+     * @param string $role
+     * @return bool
+     */
+    public function hasRole(string $role): bool
+    {
+        return $this->role === $role;
+    }
+
+    public function courses()
+    {
+        return $this->belongsToMany(Course::class, 'course_user')
+            ->withTimestamps();
     }
 }

@@ -33,8 +33,16 @@ class CourseController extends Controller
     {
         $courses = Course::with('mentor:id,name')->get();
 
-        return view('courses.index', compact('courses'));
+        return view('home', compact('courses'));
     }
+
+    // Method to display course details
+    public function show($id)
+    {
+        $course = Course::findOrFail($id); 
+        return view('mentoring', compact('course'));  
+    }
+
 
     // Method to search
     public function search($slug)

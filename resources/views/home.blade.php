@@ -18,7 +18,7 @@
             <h2 class="text-xl font-semibold mb-4">Daftar Kelompok</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 @foreach ($courses as $course)
-                <a href="{{ route('courses.show', $course->course_id) }}" class="block">
+                <a href="{{ route('courses.show', $course->course_slug) }}" class="block">
                     <div class="bg-white shadow rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300">
                         <img src="/images/Rectangle.svg" alt="Group Image" class="w-full h-32 object-cover">
                         <div class="p-4">
@@ -33,8 +33,6 @@
                 @endforeach
             </div>
         </div>
-        
-        
     </div>
     <!-- Group List Section -->
 </div>

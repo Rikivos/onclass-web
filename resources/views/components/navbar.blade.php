@@ -9,7 +9,7 @@
         <ul class="flex space-x-6">
             <li><a href="/" class="text-black font-semibold">Home</a></li>
             <li><a href="/dashboard" class="text-gray-600 hover:text-black">Dashboard</a></li>
-            <li><a href="/mentoring" class="text-gray-600 hover:text-black">Mentoring</a></li>
+            <li><a href="/mentoring/{slug}" class="text-gray-600 hover:text-black">Mentoring</a></li>
             <li><a href="/logbook" class="text-gray-600 hover:text-black">Logbook</a></li>
         </ul>
 

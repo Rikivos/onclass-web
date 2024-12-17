@@ -33,12 +33,6 @@ class CourseController extends Controller
     public function index()
     {
         $courses = Course::with('mentor:id,name')->get();
-
-        foreach ($courses as $course) {
-            $mentor = User::find($course->user_id);
-            $course->mentor = $mentor;
-        }
-
         return view('home', compact('courses'));
     }
 

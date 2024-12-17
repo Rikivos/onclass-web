@@ -25,7 +25,7 @@
                             <h3 class="text-lg font-bold mb-2">{{ $course->course_title }}</h3>
                             <div class="flex items-center gap-2 text-sm text-gray-500">
                                 <img src="/images/user.svg" alt="Mentor Icon" class="w-8 h-8 rounded-full">
-                                <span>{{ $course->mentor_id }}</span>
+                                <span>{{ $course->mentor->name }}</span>
                             </div>
                         </div>
                     </div>

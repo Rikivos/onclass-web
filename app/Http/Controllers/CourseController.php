@@ -37,9 +37,9 @@ class CourseController extends Controller
     }
 
     // Method to display course details
-    public function show($id)
+    public function show($slug)
     {
-        $course = Course::findOrFail($id); 
+        $course = Course::where('course_slug', $slug)->firstOrFail();
         return view('mentoring', compact('course'));  
     }
 

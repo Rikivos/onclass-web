@@ -12,6 +12,10 @@ class MyCourseController extends Controller
     //Get my course
     public function index()
     {
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
+
         $user = Auth::user();
         $courseUsers = CourseUser::where('user_id', $user->id)->get();
         $courseId = $courseUsers->first()->course_id;

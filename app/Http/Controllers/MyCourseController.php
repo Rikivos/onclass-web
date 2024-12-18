@@ -18,6 +18,11 @@ class MyCourseController extends Controller
 
         $user = Auth::user();
         $courseUsers = CourseUser::where('user_id', $user->id)->get();
+
+        if ($courseUsers->isEmpty()) {
+            return view('emptyCourse');
+        }
+
         $courseId = $courseUsers->first()->course_id;
         $courses = Course::find($courseId);
 

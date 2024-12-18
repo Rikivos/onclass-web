@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\Module;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -40,9 +41,15 @@ class CourseController extends Controller
     public function show($slug)
     {
         $course = Course::where('course_slug', $slug)->firstOrFail();
+        $modules = Module::where('course_id', $course->course_id)->get();
+
+        $data = [
+            'course' => $course,
+            'modules' => $modules,
+        ];
+
         return view('mentoring', compact('course'));
     }
-
 
     // Method to search
     public function search($slug)

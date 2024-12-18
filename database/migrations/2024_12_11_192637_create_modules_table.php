@@ -16,12 +16,10 @@ return new class extends Migration
             $table->string('module_title');
             $table->text('content');
             $table->unsignedBigInteger('course_id');
-            $table->unsignedBigInteger('attendance_id');
+            $table->string('file_path')->nullable();
             $table->timestamps();
 
-
             $table->foreign('course_id')->references('course_id')->on('courses')->onDelete('cascade');
-            $table->foreign('attendance_id')->references('attendance_id')->on('attendances')->onDelete('cascade');
         });
     }
 

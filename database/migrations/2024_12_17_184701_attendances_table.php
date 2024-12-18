@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('attendances', function (Blueprint $table) {
             $table->id('attendance_id');
+            $table->unsignedBigInteger('module_id');
             $table->dateTime('attendance_open');
             $table->dateTime('deadline');
             $table->dateTime('attendance_time');
@@ -20,6 +21,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
 
+            $table->foreign('module_id')->references('module_id')->on('modules')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }

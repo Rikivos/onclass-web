@@ -12,7 +12,7 @@
 }
 
 #mini-calendar .fc-daygrid-day.fc-day-today {
-    background-color: #2563eb; /* Warna highlight tanggal hari ini */
+    background-color: yellowgreen; /* Warna highlight tanggal hari ini */
     color: #fff;
 
 }

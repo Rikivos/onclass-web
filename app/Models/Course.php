@@ -20,6 +20,7 @@ class Course extends Model
         'course_title',
         'course_slug',
         'mentor_id',
+        'user_id'
     ];
 
     public function sluggable(): array
@@ -35,7 +36,7 @@ class Course extends Model
     //relation
     public function mentor()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'mentor_id');
     }
 
     public function users()
@@ -43,4 +44,6 @@ class Course extends Model
         return $this->belongsToMany(User::class, 'course_user', 'course_id', 'user_id')
             ->withTimestamps();
     }
+
+    
 }

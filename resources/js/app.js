@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
         headerToolbar: false, 
         fixedWeekCount: false,
         dayMaxEvents: false,   
-        height: 'auto',     
+        height: '500px',     
         events: [
             { title: 'Daily Standup', start: '2024-01-02' },
         ],
@@ -32,20 +32,17 @@ document.addEventListener("DOMContentLoaded", function () {
     // Kalender Utama
     const mainCalendarEl = document.getElementById("main-calendar");
     const mainCalendar = new FullCalendar.Calendar(mainCalendarEl, {
-        initialView: 'dayGridMonth',
-        headerToolbar: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'dayGridMonth,timeGridWeek,timeGridDay'
-        },
-        events: [
-            { title: 'Daily Standup', start: '2024-01-02T08:00:00' },
-            { title: 'Budget Review', start: '2024-01-04T09:00:00' },
-            { title: 'Sasha Jay 121', start: '2024-01-05T10:00:00' },
-            { title: 'Web Team Progress', start: '2024-01-11T11:00:00' },
-            { title: 'Social team briefing', start: '2024-01-12T12:00:00' },
-        ],
-    });
+        timeZone: 'UTC',
+    themeSystem: 'bootstrap5',
+    headerToolbar: {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
+    },
+    weekNumbers: true,
+    dayMaxEvents: true, // allow "more" link when too many events
+    events: 'https://fullcalendar.io/api/demo-feeds/events.json'
+  });
     mainCalendar.render();
 });
 

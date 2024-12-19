@@ -23,7 +23,7 @@ class CourseController extends Controller
         if (!$courses) {
             return response()->json('data tidak ditemukan.');
         }
-        // return response()->json($courses);
+
         return view('enroll', compact('courses'));
     }
 

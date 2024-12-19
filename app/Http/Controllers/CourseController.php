@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\Module;
+use App\Models\CourseUser;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,24 +29,31 @@ class CourseController extends Controller
     }
 
     // Method to add the authenticated user to a course
-    public function enroll($courseId)
+    public function enroll($slug)
     {
         $user = Auth::user();
-
-        $course = Course::find($courseId);
+        $course = Course::where('course_slug', $slug)->first();
 
         if (!$course) {
             return redirect()->back()->with('error', 'Course not found.');
         }
 
-        if ($user->courses->contains($courseId)) {
+        $enrollUser = CourseUser::where('user_id', $user->id)
+            ->where('course_id', $course->course_id)
+            ->get();
+
+        if ($enrollUser->isNotEmpty()) {
             return redirect()->back()->with('message', 'You are already enrolled in this course.');
         }
 
-        $user->courses->attach($courseId);
+        CourseUser::create([
+            'user_id' => $user->id,
+            'course_id' => $course->course_id,
+        ]);
 
-        return redirect()->route('courses.show', $courseId)->with('message', 'Successfully enrolled in the course!');
+        return redirect()->route('courses.show', $slug)->with('message', 'Successfully enrolled in the course!');
     }
+
 
     // Method to display all courses with names and mentor names
     public function index()

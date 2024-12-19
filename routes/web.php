@@ -18,7 +18,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 //Courses
 Route::get('/', [CourseController::class, 'index'])->name('courses.index');
 Route::get('/courses/{slug}', [CourseController::class, 'search'])->name('courses.search');
-Route::post('/courses/enroll/{courseId}', [CourseController::class, 'enroll'])->name('courses.enroll');
+Route::post('/courses/{slug}/enroll', [CourseController::class, 'enroll'])->name('courses.enroll');
 Route::get('/mycourse', [MyCourseController::class, 'index'])->name('mycourse');
 Route::get('/mycourse/{slug}', [CourseController::class, 'show'])->name('courses.show');
 

@@ -31,9 +31,12 @@
             <div class="flex flex-col items-center justify-center  rounded-lg p-6">
                 <h3 class="text-lg font-bold mb-4 text-center">Self Enroll</h3>
                 <p class="text-sm text-gray-500 mb-6 text-center">Enroll to access</p>
-                <button class="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-300">
-                    Enroll
-                </button>
+                <form action="{{ route('courses.enroll', $courses->course_slug) }}" method="POST">
+                    @csrf
+                    <button type="submit" class="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-300">
+                        Enroll
+                    </button>
+                </form>
             </div>
         </div>
     </div>

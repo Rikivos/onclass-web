@@ -22,6 +22,9 @@ Route::post('/courses/enroll/{courseId}', [CourseController::class, 'enroll'])->
 Route::get('/mycourse', [MyCourseController::class, 'index'])->name('mycourse');
 Route::get('/mycourse/{slug}', [CourseController::class, 'show'])->name('courses.show');
 
+Route::get('/enroll/{slug}', [CourseController::class, 'view'])->name('enroll');;
+Route::post('/enroll/{slug}')->name('enroll.post');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware('auth');
@@ -36,8 +39,4 @@ Route::get('/participant', function () {
 
 Route::get('/logbook', function () {
     return view('logbook');
-});
-
-Route::get('/enroll', function () {
-    return view('enroll');
 });

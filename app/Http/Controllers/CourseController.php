@@ -10,6 +10,23 @@ use Illuminate\Support\Facades\Auth;
 
 class CourseController extends Controller
 {
+    // Method enroll view
+    public function view($slug)
+    {
+        $user = Auth::user();
+
+        if (empty($user)) {
+            return redirect()->route('login');
+        }
+
+        $courses = Course::with('mentor:id,name')->where('course_slug', $slug)->firstOrFail();
+        if (!$courses) {
+            return response()->json('data tidak ditemukan.');
+        }
+        // return response()->json($courses);
+        return view('enroll', compact('courses'));
+    }
+
     // Method to add the authenticated user to a course
     public function enroll($courseId)
     {
@@ -42,11 +59,6 @@ class CourseController extends Controller
     {
         $course = Course::where('course_slug', $slug)->firstOrFail();
         $modules = Module::where('course_id', $course->course_id)->get();
-
-        $data = [
-            'course' => $course,
-            'modules' => $modules,
-        ];
 
         return view('mentoring', compact('course'));
     }

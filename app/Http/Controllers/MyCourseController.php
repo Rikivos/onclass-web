@@ -24,7 +24,9 @@ class MyCourseController extends Controller
         }
 
         $courseId = $courseUsers->first()->course_id;
-        $courses = Course::find($courseId);
+        $courses = Course::with('mentor:id,name')->whereIn('course_id', $courseUsers->pluck('course_id'))->get();
+
+        // return response()->json($courses);
 
         return view('mycourse', compact('courses'));
     }

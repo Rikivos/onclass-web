@@ -40,3 +40,8 @@ Route::get('/participant', function () {
 Route::get('/logbook', function () {
     return view('logbook');
 });
+
+Route::prefix('admin')->group(function () {
+    Route::view('/dashboard', 'admin.dashboard')->name('admin.dashboard');
+    Route::view('/data', 'admin.data')->name('admin.data');
+});

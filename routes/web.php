@@ -37,3 +37,7 @@ Route::get('/participant', function () {
 Route::get('/logbook', function () {
     return view('logbook');
 });
+
+Route::get('/enroll', function () {
+    return view('enroll');
+});

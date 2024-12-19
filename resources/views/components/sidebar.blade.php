@@ -1,4 +1,4 @@
-<div class="flex h-screen">
+<div class="flex ">
     <!-- Sidebar -->
     <aside class="w-64 bg-white text-gray-800 p-4 border-r shadow-md">
 

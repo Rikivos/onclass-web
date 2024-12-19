@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="container mx-auto p-4">
     <!-- Header Section -->
     <div class="text-left mb-8">

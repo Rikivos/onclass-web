@@ -3,7 +3,7 @@
 @section('content')
 <div class="bg-blue-600 text-white">
     <div class="container mx-auto flex justify-center items-center py-4 px-6">
-        <a href="/mentoring" class="text-lg font-bold mx-4">Mentoring</a>
+        <a href="/mycourse" class="text-lg font-bold mx-4">Mentoring</a>
         <a href="/participant" class="text-lg font-bold mx-4 underline">Participants</a>
     </div>
 </div>

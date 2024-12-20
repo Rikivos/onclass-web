@@ -20,9 +20,7 @@
         </main>
 
         <!-- Footer -->
-        <footer class="bg-blue-700 text-center py-4 text-sm text-white">
-            © Copyright - UMP | Theme by RWMCode
-        </footer>
+        <x-footer />       
     </div>
 </body>
 </html>

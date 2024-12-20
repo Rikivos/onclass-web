@@ -28,6 +28,7 @@ Route::post('/enroll/{slug}')->name('enroll.post');
 
 //logbook
 Route::post('/logbook', [LogbookController::class, 'add'])->name('logbook.add');
+Route::get('/logbook', [LogbookController::class, 'indexByCourse'])->name('logbook.show');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -41,9 +42,6 @@ Route::get('/participant', function () {
     return view('participant');
 });
 
-Route::get('/logbook', function () {
-    return view('logbook');
-});
 
 Route::prefix('admin')->group(function () {
     Route::view('/dashboard', 'admin.dashboard')->name('admin.dashboard');

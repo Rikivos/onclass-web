@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\LogbookController;
 use App\Http\Controllers\MyCourseController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +25,9 @@ Route::get('/mycourse/{slug}', [CourseController::class, 'show'])->name('courses
 
 Route::get('/enroll/{slug}', [CourseController::class, 'view'])->name('enroll');;
 Route::post('/enroll/{slug}')->name('enroll.post');
+
+//logbook
+Route::post('/logbook', [LogbookController::class, 'add'])->name('logbook.add');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

@@ -13,15 +13,18 @@ return new class extends Migration
     {
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
+            $table->string('report_name');
             $table->string('report_photo');
             $table->text('description');
+            $table->dateTime('start_time');
+            $table->dateTime('end_time');
             $table->date('upload_date');
             $table->enum('status', ['pending', 'approved', 'rejected']);
-            $table->unsignedBigInteger('meeting_id');
+            $table->unsignedBigInteger('course_id');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
 
-            $table->foreign('meeting_id')->references('meeting_id')->on('meetings')->onDelete('cascade');
+            $table->foreign('course_id')->references('course_id')->on('courses')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }

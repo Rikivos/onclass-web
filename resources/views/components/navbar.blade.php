@@ -9,12 +9,21 @@
             <!-- Links -->
             <ul class="flex space-x-6">
                 @if(!request()->is('admin/*'))
-                    <li><a href="/" class="text-black font-semibold">Home</a></li>
-                    <li><a href="/dashboard" class="text-gray-600 hover:text-black">Dashboard</a></li>
-                    <li><a href="{{ route('mycourse') }}" class="text-gray-600 hover:text-black">Mentoring</a></li>
-                    <li><a href="/logbook" class="text-gray-600 hover:text-black">Logbook</a></li>
+                    <li>
+                        <a href="/" class="text-gray-600 hover:text-black {{ request()->is('/') ? 'text-black font-semibold' : '' }}">Home</a>
+                    </li>
+                    <li>
+                        <a href="/dashboard" class="text-gray-600 hover:text-black {{ request()->is('dashboard') ? 'text-black font-semibold' : '' }}">Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('mycourse') }}" class="text-gray-600 hover:text-black {{ request()->is('mycourse') ? 'text-black font-semibold' : '' }}">Mentoring</a>
+                    </li>
+                    <li>
+                        <a href="/logbook" class="text-gray-600 hover:text-black {{ request()->is('logbook') ? 'text-black font-semibold' : '' }}">Logbook</a>
+                    </li>
                 @endif
             </ul>
+            
 
             <!-- Actions -->
             <div class="flex items-center space-x-4">

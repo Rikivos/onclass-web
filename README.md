@@ -14,11 +14,11 @@ npm install
 # create .env file and generate the application key
 cp .env.example .env
 php artisan key:generate
+php artisan migrate
+php artisan db:seed --class=DatabaseSeeder
 
 # build CSS and JS assets
 npm run dev
-# or, if you prefer minified files
-npm run prod
 ```
 
 Then launch the server:
@@ -30,3 +30,5 @@ php artisan serve
 The Laravel mentoring project is now up and running! Access it at http://localhost:8000.
 
 ## Licence
+
+RWMCode 

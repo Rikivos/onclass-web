@@ -1,5 +1,6 @@
+@if(request()->is('login') === false)
 <nav class="bg-white shadow p-4">
-    <div class="container mx-auto flex justify-between items-center">
+    <div class="flex justify-between items-center">
         <!-- Logo -->
         <div class="flex items-center">
             <img src="/images/ump.svg" alt="UMP Logo" class="h-12 mr-6">
@@ -7,11 +8,22 @@
 
         <!-- Links -->
         <ul class="flex space-x-6">
-            <li><a href="/" class="text-black font-semibold">Home</a></li>
-            <li><a href="/dashboard" class="text-gray-600 hover:text-black">Dashboard</a></li>
-            <li><a href="{{ route('mycourse') }}" class="text-gray-600 hover:text-black">Mentoring</a></li>
-            <li><a href="/logbook" class="text-gray-600 hover:text-black">Logbook</a></li>
+            @if(!request()->is('admin/*'))
+            <li>
+                <a href="/" class="text-gray-600 hover:text-black {{ request()->is('/') ? 'text-black font-semibold' : '' }}">Home</a>
+            </li>
+            <li>
+                <a href="/dashboard" class="text-gray-600 hover:text-black {{ request()->is('dashboard') ? 'text-black font-semibold' : '' }}">Dashboard</a>
+            </li>
+            <li>
+                <a href="{{ route('mycourse') }}" class="text-gray-600 hover:text-black {{ request()->is('mycourse') ? 'text-black font-semibold' : '' }}">Mentoring</a>
+            </li>
+            <li>
+                <a href="{{ route('logbook.show') }}" class="text-gray-600 hover:text-black {{ request()->is('logbook') ? 'text-black font-semibold' : '' }}">Logbook</a>
+            </li>
+            @endif
         </ul>
+
 
         <!-- Actions -->
         <div class="flex items-center space-x-4">
@@ -36,3 +48,4 @@
         </div>
     </div>
 </nav>
+@endif

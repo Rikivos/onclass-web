@@ -13,14 +13,13 @@
     <div class="min-h-screen flex flex-col">
         <!-- Navbar -->
         <x-navbar />
+        <!-- Sidebar -->
 
         <!-- Page Content -->
         <main class="flex-grow">
             @yield('content')
         </main>
 
-        <!-- Footer -->
-        <x-footer />       
     </div>
 </body>
 </html>

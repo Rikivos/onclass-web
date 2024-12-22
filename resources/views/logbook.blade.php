@@ -108,7 +108,7 @@
         <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
             <div class="bg-white rounded-lg w-1/2 shadow-lg p-6 overflow-y-auto max-h-[90vh]">
                 <h2 class="text-xl font-bold mb-4">Tambahkan Kegiatan Mentoring</h2>
-        
+
                 <form action="{{ route('logbook.add') }}" method="POST">
                     <!-- Nama Kegiatan -->
                     @csrf
@@ -117,30 +117,33 @@
                         <input type="text" id="report_name" name="report_name"
                             class="w-full border rounded-lg p-2 focus:ring-2 focus:ring-blue-500">
                     </div>
-        
+
                     <!-- Tanggal -->
                     <div class="mb-4">
                         <label for="upload_date" class="block text-sm font-medium mb-1">Tanggal</label>
                         <input type="date" id="upload_date" name="upload_date"
                             class="w-full border rounded-lg p-2 focus:ring-2 focus:ring-blue-500">
                     </div>
-        
+
                     <!-- Waktu -->
                     <div class="mb-4">
                         <label for="waktu" class="block text-sm font-medium mb-1">Waktu</label>
                         <div class="flex items-center space-x-2">
-                            <input name="start_time" type="time" class="w-1/2 border rounded-lg p-2 focus:ring-2 focus:ring-blue-500">
+                            <input name="start_time" type="time"
+                                class="w-1/2 border rounded-lg p-2 focus:ring-2 focus:ring-blue-500">
                             <span>s/d</span>
-                            <input name="end_time" type="time" class="w-1/2 border rounded-lg p-2 focus:ring-2 focus:ring-blue-500">
+                            <input name="end_time" type="time"
+                                class="w-1/2 border rounded-lg p-2 focus:ring-2 focus:ring-blue-500">
                         </div>
                     </div>
-        
+
                     <!-- Uraian Mentoring -->
                     <div class="mb-4">
                         <label for="uraian" class="block text-sm font-medium mb-1">Uraian Mentoring</label>
-                        <textarea name="description" id="description" rows="4" class="w-full border rounded-lg p-2 focus:ring-2 focus:ring-blue-500"></textarea>
+                        <textarea name="description" id="description" rows="4"
+                            class="w-full border rounded-lg p-2 focus:ring-2 focus:ring-blue-500"></textarea>
                     </div>
-        
+
                     <!-- Media Kamera -->
                     <div class="mb-4">
                         <label class="block text-sm font-medium mb-1">Media Kamera</label>
@@ -154,18 +157,21 @@
                             <div class="controls">
                                 <button class="play">Play</button>
                                 <button class="pause hidden"></button>
-                                <button class="screenshot hidden bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 mt-2" type="button">Foto</button>
+                                <button
+                                    class="screenshot hidden bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 mt-2"
+                                    type="button">Foto</button>
                             </div>
                         </div>
-                    </div>        
+                    </div>
                     <!-- Screenshot Preview -->
                     <div class="screenshot-preview" style="display: none;">
                         <h3 class="text-sm font-medium mb-2">Gambar Foto</h3>
                         <img id="screenshotImage" alt="Screenshot" />
-                        <button id="deleteScreenshotButton" type="button" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 mt-2">
+                        <button id="deleteScreenshotButton" type="button"
+                            class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 mt-2">
                             Hapus Foto
                         </button>
-                    </div>                    
+                    </div>
                     <!-- Buttons -->
                     <div class="flex justify-end space-x-2">
                         <button type="button" id="closeModal"
@@ -178,6 +184,97 @@
                     </div>
                 </form>
             </div>
-        </div>        
+        </div>
     </div>
+
+    <script>
+        // Script to Handle Modal From logbook
+        // Modal Handling
+        const modal = document.getElementById('modal');
+        const openModalButton = document.getElementById('openModal');
+        const closeModalButton = document.getElementById('closeModal');
+
+        openModalButton.onclick = () => modal.classList.remove('hidden');
+        closeModalButton.onclick = () => modal.classList.add('hidden');
+
+        // Camera Handling
+        const openCameraButton = document.getElementById('openCameraButton');
+        const cameraContainer = document.getElementById('cameraContainer');
+        const video = cameraContainer.querySelector('video');
+        const canvas = cameraContainer.querySelector('canvas');
+        const screenshotImage = document.getElementById('screenshotImage');
+        const screenshotPreview = document.querySelector('.screenshot-preview');
+        const [playButton, pauseButton, screenshotButton] = cameraContainer.querySelectorAll('button');
+
+        let streamStarted = false;
+
+        const constraints = {
+            video: {
+                width: {
+                    ideal: 1280
+                },
+                height: {
+                    ideal: 720
+                }
+            }
+        };
+
+        const startStream = (stream) => {
+            video.srcObject = stream;
+            streamStarted = true;
+            playButton.classList.toggle('hidden', true);
+            pauseButton.classList.toggle('hidden', false);
+            screenshotButton.classList.toggle('hidden', false);
+            openCameraButton.textContent = 'Tutup Kamera';
+        };
+
+        const stopStream = () => {
+            video.srcObject?.getTracks().forEach(track => track.stop());
+            video.srcObject = null;
+            streamStarted = false;
+            openCameraButton.textContent = 'Buka Kamera';
+        };
+
+        openCameraButton.onclick = async () => {
+            if (streamStarted) {
+                stopStream();
+                cameraContainer.classList.add('hidden');
+            } else {
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia(constraints);
+                    startStream(stream);
+                    cameraContainer.classList.remove('hidden');
+                } catch (error) {
+                    alert('Tidak dapat mengakses kamera.');
+                }
+            }
+        };
+
+        playButton.onclick = video.play.bind(video);
+        pauseButton.onclick = video.pause.bind(video);
+
+        pauseButton.onclick = video.pause.bind(video) || (() => {
+            pauseButton.classList.add('hidden');
+            playButton.classList.remove('hidden');
+        });
+
+        screenshotButton.onclick = () => {
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            canvas.getContext('2d').drawImage(video, 0, 0);
+            const imageURL = canvas.toDataURL('image/jpeg/png/jpg');
+
+            // Tampilkan gambar di form
+            screenshotImage.src = imageURL;
+            screenshotPreview.style.display = 'block';
+        };
+
+        // Script to Handle Delete Screenshot
+        const deleteScreenshotButton = document.getElementById('deleteScreenshotButton');
+        deleteScreenshotButton.onclick = () => {
+            // Delete Image from form
+            screenshotImage.src = '';
+            screenshotPreview.style.display = 'none';
+        };
+    </script>
 @endsection

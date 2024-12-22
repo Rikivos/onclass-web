@@ -10,6 +10,7 @@
     <link href="https://onclass-web-preview.up.railway.app/resources/js/app.js" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+    <link rel="preload" as="style" href="http://onclass-web-preview.up.railway.app/build/assets/app-B0e9mqJw.css" /><link rel="modulepreload" href="http://onclass-web-preview.up.railway.app/build/assets/app-aCorRlgN.js" /><link rel="stylesheet" href="http://onclass-web-preview.up.railway.app/build/assets/app-B0e9mqJw.css" /><script type="module" src="http://onclass-web-preview.up.railway.app/build/assets/app-aCorRlgN.js"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-gray-100 font-sans">

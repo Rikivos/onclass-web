@@ -19,10 +19,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const miniCalendarEl = document.getElementById("mini-calendar");
     const miniCalendar = new FullCalendar.Calendar(miniCalendarEl, {
         initialView: 'dayGridMonth',
-        headerToolbar: false, 
+        headerToolbar: false,
         fixedWeekCount: false,
-        dayMaxEvents: false,   
-        height: 'auto',     
+        dayMaxEvents: false,
+        height: 'auto',
         events: [
             { title: 'Daily Standup', start: '2024-01-02' },
         ],
@@ -113,13 +113,15 @@ pauseButton.onclick = video.pause.bind(video) || (() => {
 screenshotButton.onclick = () => {
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
-    canvas.getContext('2d').drawImage(video, 0, 0);
-    const imageURL = canvas.toDataURL('image/jpeg/png/jpg');
-    
-    // Tampilkan gambar di form
+    canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+
+    const imageURL = canvas.toDataURL('image/jpeg');
     screenshotImage.src = imageURL;
     screenshotPreview.style.display = 'block';
+
+    document.getElementById('screenshotImage').value = imageURL;
 };
+
 
 // Script to Handle Delete Screenshot
 const deleteScreenshotButton = document.getElementById('deleteScreenshotButton');
@@ -127,4 +129,5 @@ deleteScreenshotButton.onclick = () => {
     // Delete Image from form
     screenshotImage.src = '';
     screenshotPreview.style.display = 'none';
+    document.getElementById('screenshotImage').value = '';
 };

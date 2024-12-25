@@ -6,7 +6,8 @@ use App\Models\Course;
 use App\Models\Report;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\File;
+
 
 class LogbookController extends Controller
 {
@@ -51,6 +52,7 @@ class LogbookController extends Controller
             'start_time' => 'required|date_format:H:i',
             'end_time' => 'required|date_format:H:i|after:start_time',
             'upload_date' => 'required|date',
+            'image' => 'nullable', // Tidak gunakan validasi 'image' karena ini Base64
         ]);
 
         $user = Auth::user();
@@ -67,9 +69,19 @@ class LogbookController extends Controller
         $start_time = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $start_time);
         $end_time = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $end_time);
 
+        // Proses gambar Base64 jika tersedia
+        if ($request->has('image')) {
+            $base64Image = $request->input('image');
+            $image = str_replace('data:image/jpeg;base64,', '', $base64Image);
+            $image = str_replace(' ', '+', $image);
+            $imageName = time() . '.jpg';
+            File::put(public_path('uploads/') . $imageName, base64_decode($image));
+            $imagePath = 'uploads/' . $imageName;
+        }
+
         $report = new Report();
         $report->report_name = $request->input('report_name');
-        $report->report_photo = 'default_photo.jpg'; // Ganti dengan logika upload foto jika ada
+        $report->report_photo = $imagePath; // Simpan path gambar
         $report->description = $request->input('description');
         $report->start_time = $start_time;
         $report->end_time = $end_time;
@@ -81,6 +93,7 @@ class LogbookController extends Controller
 
         return redirect()->route('logbook.show')->with('success', 'Logbook berhasil ditambahkan');
     }
+
 
     // Edit logbook
 

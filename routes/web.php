@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\LogbookController;
+use App\Http\Controllers\MentorController;
 use App\Http\Controllers\MyCourseController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,6 +30,16 @@ Route::post('/enroll/{slug}')->name('enroll.post');
 //logbook
 Route::post('/logbook', [LogbookController::class, 'add'])->name('logbook.add');
 Route::get('/logbook', [LogbookController::class, 'indexByCourse'])->name('logbook.show');
+
+
+//Admin
+
+//mentor
+Route::get('/admin/mentor', [MentorController::class, 'getMentor']);
+Route::post('/admin/mentor/add', [MentorController::class, 'addMentor']);
+
+
+//end admin
 
 Route::get('/dashboard', function () {
     return view('dashboard');

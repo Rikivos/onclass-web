@@ -39,6 +39,11 @@ Route::get('/admin/mentor', [MentorController::class, 'getMentor']);
 Route::post('/admin/mentor/add', [MentorController::class, 'addMentor']);
 Route::post('/admin/mentor/delete', [MentorController::class, 'addMentor']);
 
+Route::prefix('admin')->group(function () {
+    Route::view('/dashboard', 'admin.dashboard')->name('admin.dashboard');
+    Route::get('/data', [MentorController::class, 'getMentor'])->name('admin.data');
+});
+
 
 //end admin
 
@@ -52,10 +57,4 @@ Route::get('/mentoring', function () {
 
 Route::get('/participant', function () {
     return view('participant');
-});
-
-
-Route::prefix('admin')->group(function () {
-    Route::view('/dashboard', 'admin.dashboard')->name('admin.dashboard');
-    Route::view('/data', 'admin.data')->name('admin.data');
 });

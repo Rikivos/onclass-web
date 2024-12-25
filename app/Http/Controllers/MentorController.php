@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Users;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class MentorController extends Controller
@@ -10,9 +10,10 @@ class MentorController extends Controller
     //get mentors
     public function getMentor()
     {
-        $mentors = Users::where('role', 'mentor')->get();
+        $mentors = User::where('role', 'mentor')->with('courses')->get();
 
-        return response()->json($mentors);
+        // return response()->json($mentors);
+        return view('admin.data', compact('mentors'));
     }
 
     //add mentor
@@ -23,7 +24,7 @@ class MentorController extends Controller
         ]);
 
         try {
-            $user = Users::findOrFail($request->nim);
+            $user = User::findOrFail($request->nim);
 
             if ($user->role === 'mentor') {
                 return response()->json([
@@ -56,7 +57,7 @@ class MentorController extends Controller
         ]);
 
         try {
-            $user = Users::findOrFail($request->user_id);
+            $user = User::findOrFail($request->user_id);
 
             if ($user->role !== 'mentor') {
                 return response()->json([

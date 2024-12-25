@@ -13,7 +13,7 @@
         <div class="bg-white shadow-md rounded-md p-4">
             <!-- Judul -->
             <h2 class="text-xl font-bold mb-4">Kelola Mentor</h2>
-            
+
             <!-- Tombol Tambah dan Pencarian -->
             <div class="flex justify-between items-center mb-4">
                 <button class="bg-blue-500 text-white px-4 py-2 rounded flex items-center">
@@ -29,58 +29,38 @@
                     </svg>
                 </div>
             </div>
-            
+
             <!-- Tabel -->
             <table class="w-full table-auto">
                 <thead>
                     <tr class="bg-gray-100">
+                        <th class="text-left p-2">Nama</th>
+                        <th class="text-left p-2">NIM</th>
                         <th class="text-left p-2">Kelompok</th>
-                        <th class="text-left p-2">Mentor</th>
-                        <th class="text-left p-2">Unduh Data</th>
+                        <th class="text-left p-2">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach ($mentors as $mentor)
                     <tr>
-                        <td class="p-2">aa</td>
-                        <td class="p-2">aa</td>
+                        <td class="p-2">{{ $mentor->name }}</td>
+                        <td class="p-2">{{ $mentor->nim }}</td>
+                        <td class="p-2">{{ $mentor->course_title }}</td>
                         <td class="p-2">
                             <button class="bg-blue-500 text-white px-4 py-2 rounded">Edit</button>
                             <button class="bg-blue-500 text-white px-4 py-2 rounded">Hapus</button>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="p-2">aa</td>
-                        <td class="p-2">aa</td>
-                        <td class="p-2">
-                            <button class="bg-blue-500 text-white px-4 py-2 rounded">Edit</button>
-                            <button class="bg-blue-500 text-white px-4 py-2 rounded">Hapus</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="p-2">aa</td>
-                        <td class="p-2">aa</td>
-                        <td class="p-2">
-                            <button class="bg-blue-500 text-white px-4 py-2 rounded">Edit</button>
-                            <button class="bg-blue-500 text-white px-4 py-2 rounded">Hapus</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="p-2">aa</td>
-                        <td class="p-2">aa</td>
-                        <td class="p-2">
-                            <button class="bg-blue-500 text-white px-4 py-2 rounded">Edit</button>
-                            <button class="bg-blue-500 text-white px-4 py-2 rounded">Hapus</button>
-                        </td>
-                    </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
-        
-        
+
+
         <div class="bg-white shadow-md rounded-md p-4 mt-6">
             <!-- Judul -->
             <h2 class="text-xl font-bold mb-4">Kelola Kelas</h2>
-            
+
             <!-- Tombol Tambah dan Pencarian -->
             <div class="flex justify-between items-center mb-4">
                 <button class="bg-blue-500 text-white px-4 py-2 rounded flex items-center">
@@ -96,7 +76,7 @@
                     </svg>
                 </div>
             </div>
-            
+
             <!-- Tabel -->
             <table class="w-full table-auto">
                 <thead>

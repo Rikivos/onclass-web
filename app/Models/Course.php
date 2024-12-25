@@ -36,7 +36,7 @@ class Course extends Model
     //relation
     public function mentor()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'mentor_id', 'id');
     }
 
     public function users()

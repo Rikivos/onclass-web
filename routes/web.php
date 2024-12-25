@@ -37,6 +37,7 @@ Route::get('/logbook', [LogbookController::class, 'indexByCourse'])->name('logbo
 //mentor
 Route::get('/admin/mentor', [MentorController::class, 'getMentor']);
 Route::post('/admin/mentor/add', [MentorController::class, 'addMentor']);
+Route::post('/admin/mentor/delete', [MentorController::class, 'addMentor']);
 
 
 //end admin

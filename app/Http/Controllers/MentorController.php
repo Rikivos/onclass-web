@@ -48,4 +48,37 @@ class MentorController extends Controller
             ], 500);
         }
     }
+
+    public function deleteMentor(Request $request)
+    {
+        $request->validate([
+            'nim' => 'required',
+        ]);
+
+        try {
+            $user = Users::findOrFail($request->user_id);
+
+            if ($user->role !== 'mentor') {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'The user is not a mentor.',
+                ], 400);
+            }
+
+            $user->role = 'mente';
+            $user->save();
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'The mentor role has been removed successfully.',
+                'data' => $user,
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'An error occurred while removing the mentor role.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
 }

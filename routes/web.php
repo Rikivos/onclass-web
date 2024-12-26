@@ -1,9 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\DataController as AdminDataController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\LogbookController;
-use App\Http\Controllers\MentorController;
 use App\Http\Controllers\MyCourseController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,13 +35,13 @@ Route::get('/logbook', [LogbookController::class, 'indexByCourse'])->name('logbo
 //Admin
 
 //mentor
-Route::get('/admin/mentor', [MentorController::class, 'getMentor']);
-Route::post('/admin/mentor/add', [MentorController::class, 'addMentor']);
-Route::post('/admin/mentor/delete', [MentorController::class, 'addMentor']);
+Route::get('/admin/mentor', [AdminDataController::class, 'getMentor']);
+Route::post('/admin/mentor/add', [AdminDataController::class, 'addMentor']);
+Route::post('/admin/mentor/delete', [AdminDataController::class, 'addMentor']);
 
 Route::prefix('admin')->group(function () {
     Route::view('/dashboard', 'admin.dashboard')->name('admin.dashboard');
-    Route::get('/data', [MentorController::class, 'getMentor'])->name('admin.data');
+    Route::get('/data', [AdminDataController::class, 'getMentor'])->name('admin.data');
 });
 
 

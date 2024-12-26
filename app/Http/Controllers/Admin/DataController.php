@@ -1,19 +1,27 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
+use App\Models\Course;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class MentorController extends Controller
+class DataController extends Controller
 {
-    //get mentors
+    //get mentors and Course
     public function getMentor()
     {
+        //mentors
         $mentors = User::where('role', 'mentor')->with('courses')->get();
 
+        //Course
+        $courses = Course::with(['mentor'])
+            ->withCount('users')
+            ->get();
+
         // return response()->json($mentors);
-        return view('admin.data', compact('mentors'));
+        return view('admin.data', compact('mentors', 'courses'));
     }
 
     //add mentor

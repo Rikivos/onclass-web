@@ -45,7 +45,12 @@
                     <tr>
                         <td class="p-2">{{ $mentor->name }}</td>
                         <td class="p-2">{{ $mentor->nim }}</td>
-                        <td class="p-2">{{ $mentor->course_title }}</td>
+                        <td class="p-2">
+                            @foreach ($mentor->courses as $course)
+                            {{ $course->course_title }}
+                            <br>
+                            @endforeach
+                        </td>
                         <td class="p-2">
                             <button class="bg-blue-500 text-white px-4 py-2 rounded">Edit</button>
                             <button class="bg-blue-500 text-white px-4 py-2 rounded">Hapus</button>
@@ -82,43 +87,24 @@
                 <thead>
                     <tr class="bg-gray-100">
                         <th class="text-left p-2">Kelompok</th>
+                        <th class="text-left p-2">Jumlah </th>
                         <th class="text-left p-2">Mentor</th>
                         <th class="text-left p-2">Unduh Data</th>
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach ($courses as $course)
                     <tr>
-                        <td class="p-2">aa</td>
-                        <td class="p-2">aa</td>
+                        <td class="p-2">{{ $course->course_title }}</td>
+                        <td class="p-2">{{ $course->users_count }}</td>
+                        <td class="p-2">{{ $course->mentor->name ?? 'Tidak ada mentor' }}</td>
                         <td class="p-2">
                             <button class="bg-blue-500 text-white px-4 py-2 rounded">Edit</button>
                             <button class="bg-blue-500 text-white px-4 py-2 rounded">Hapus</button>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="p-2">aa</td>
-                        <td class="p-2">aa</td>
-                        <td class="p-2">
-                            <button class="bg-blue-500 text-white px-4 py-2 rounded">Edit</button>
-                            <button class="bg-blue-500 text-white px-4 py-2 rounded">Hapus</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="p-2">aa</td>
-                        <td class="p-2">aa</td>
-                        <td class="p-2">
-                            <button class="bg-blue-500 text-white px-4 py-2 rounded">Edit</button>
-                            <button class="bg-blue-500 text-white px-4 py-2 rounded">Hapus</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="p-2">aa</td>
-                        <td class="p-2">aa</td>
-                        <td class="p-2">
-                            <button class="bg-blue-500 text-white px-4 py-2 rounded">Edit</button>
-                            <button class="bg-blue-500 text-white px-4 py-2 rounded">Hapus</button>
-                        </td>
-                    </tr>
+                    @endforeach
+
                 </tbody>
             </table>
         </div>

@@ -20,7 +20,6 @@ class DataController extends Controller
             ->withCount('users')
             ->get();
 
-        // return response()->json($mentors);
         return view('admin.data', compact('mentors', 'courses'));
     }
 

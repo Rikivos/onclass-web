@@ -113,7 +113,6 @@ class DataController extends Controller
 
         $course_slug = Str::slug($validated['course_title'], '-');
 
-        // Simpan course ke database
         $course = Course::create([
             'course_title' => $validated['course_title'],
             'course_slug' => $course_slug,
@@ -125,6 +124,74 @@ class DataController extends Controller
             'course' => $course,
         ], 201);
     }
+
+    //Show Edit
+    public function edit($id)
+    {
+        $course = Course::find($id);
+
+        if (!$course) {
+            return redirect()->route('courses.index')->with('error', 'Course tidak ditemukan.');
+        }
+
+        return view('admin.edit_course', compact('course'));
+    }
+
+
+    //Update Course
+    public function update(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'course_title' => 'required|string|max:255',
+            'mentor_nim' => 'required|string|exists:users,nim',
+        ]);
+
+        $course = Course::find($id);
+
+        if (!$course) {
+            return response()->json([
+                'message' => 'Course tidak ditemukan.',
+            ], 404);
+        }
+
+        $mentor = User::where('nim', $validated['mentor_nim'])->where('role', 'mentor')->first();
+
+        if (!$mentor) {
+            return response()->json([
+                'message' => 'Mentor dengan NIM tersebut tidak ditemukan atau bukan seorang mentor.',
+            ], 404);
+        }
+
+        $course->update([
+            'course_title' => $validated['course_title'],
+            'course_slug' => Str::slug($validated['course_title'], '-'),
+            'mentor_id' => $mentor->id,
+        ]);
+
+        return response()->json([
+            'message' => 'Course berhasil diperbarui!',
+            'course' => $course,
+        ]);
+    }
+
+    //Delete Course
+    public function destroy($id)
+    {
+        $course = Course::find($id);
+
+        if (!$course) {
+            return response()->json([
+                'message' => 'Course tidak ditemukan.',
+            ], 404);
+        }
+
+        $course->delete();
+
+        return response()->json([
+            'message' => 'Course berhasil dihapus.',
+        ]);
+    }
+
 
     //End Course
 }

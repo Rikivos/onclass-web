@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\DataController as AdminDataController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\LogbookController;
@@ -30,6 +31,22 @@ Route::post('/enroll/{slug}')->name('enroll.post');
 Route::post('/logbook', [LogbookController::class, 'add'])->name('logbook.add');
 Route::get('/logbook', [LogbookController::class, 'indexByCourse'])->name('logbook.show');
 
+
+//Admin
+
+//mentor
+Route::get('/admin/mentor', [AdminDataController::class, 'getMentor']);
+Route::post('/admin/mentor/add', [AdminDataController::class, 'addMentor']);
+Route::post('/admin/mentor/delete', [AdminDataController::class, 'addMentor']);
+
+Route::prefix('admin')->group(function () {
+    Route::view('/dashboard', 'admin.dashboard')->name('admin.dashboard');
+    Route::get('/data', [AdminDataController::class, 'getMentor'])->name('admin.data');
+});
+
+
+//end admin
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware('auth');
@@ -40,10 +57,4 @@ Route::get('/mentoring', function () {
 
 Route::get('/participant', function () {
     return view('participant');
-});
-
-
-Route::prefix('admin')->group(function () {
-    Route::view('/dashboard', 'admin.dashboard')->name('admin.dashboard');
-    Route::view('/data', 'admin.data')->name('admin.data');
 });

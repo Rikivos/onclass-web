@@ -36,12 +36,11 @@ class Course extends Model
     //relation
     public function mentor()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'mentor_id', 'id');
     }
 
     public function users()
     {
-        return $this->belongsToMany(User::class)
-            ->withTimestamps();
+        return $this->belongsToMany(User::class, 'course_user', 'course_id', 'user_id');
     }
 }

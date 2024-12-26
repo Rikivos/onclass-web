@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class DataController extends Controller
 {
@@ -23,6 +24,7 @@ class DataController extends Controller
         return view('admin.data', compact('mentors', 'courses'));
     }
 
+    // Start Mentor
     //add mentor
     public function addMentor(Request $request)
     {
@@ -57,6 +59,7 @@ class DataController extends Controller
         }
     }
 
+    //Delete Mentor
     public function deleteMentor(Request $request)
     {
         $request->validate([
@@ -89,4 +92,39 @@ class DataController extends Controller
             ], 500);
         }
     }
+    //End Mentor
+
+    //Start Course
+    //Add course
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'course_title' => 'required|string|max:255',
+            'mentor_nim' => 'required|string|exists:users,nim',
+        ]);
+
+        $mentor = User::where('nim', $validated['mentor_nim'])->where('role', 'mentor')->first();
+
+        if (!$mentor) {
+            return response()->json([
+                'message' => 'Mentor dengan NIM tersebut tidak ditemukan atau bukan seorang mentor.',
+            ], 404);
+        }
+
+        $course_slug = Str::slug($validated['course_title'], '-');
+
+        // Simpan course ke database
+        $course = Course::create([
+            'course_title' => $validated['course_title'],
+            'course_slug' => $course_slug,
+            'mentor_id' => $mentor->id,
+        ]);
+
+        return response()->json([
+            'message' => 'Course berhasil ditambahkan!',
+            'course' => $course,
+        ], 201);
+    }
+
+    //End Course
 }

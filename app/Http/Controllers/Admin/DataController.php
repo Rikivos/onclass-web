@@ -96,7 +96,7 @@ class DataController extends Controller
 
     //Start Course
     //Add course
-    public function store(Request $request)
+    public function storeCourse(Request $request)
     {
         $validated = $request->validate([
             'course_title' => 'required|string|max:255',
@@ -126,7 +126,7 @@ class DataController extends Controller
     }
 
     //Show Edit
-    public function edit($id)
+    public function editCourse($id)
     {
         $course = Course::find($id);
 
@@ -139,7 +139,7 @@ class DataController extends Controller
 
 
     //Update Course
-    public function update(Request $request, $id)
+    public function updateCourse(Request $request, $id)
     {
         $validated = $request->validate([
             'course_title' => 'required|string|max:255',
@@ -175,7 +175,7 @@ class DataController extends Controller
     }
 
     //Delete Course
-    public function destroy($id)
+    public function destroyCourse($id)
     {
         $course = Course::find($id);
 

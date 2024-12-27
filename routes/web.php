@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return redirect()->route('courses.index');
-});
+})->middleware('auth');
 
 
 //auth
@@ -43,6 +43,7 @@ Route::prefix('admin')->group(function () {
     Route::view('/dashboard', 'admin.dashboard')->name('admin.dashboard');
     Route::get('/mentor', [AdminDataController::class, 'getMentor'])->name('admin.mentor');
     Route::get('/class', [AdminDataController::class, 'getCourse'])->name('admin.class');
+    Route::view('/attendance','admin.attendance ')->name('admin.attendance');
 });
 Route::get('/mentor', [AdminDataController::class, 'search']);
 

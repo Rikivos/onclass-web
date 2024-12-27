@@ -17,6 +17,10 @@
                 <a href="{{ route('admin.class') }}" class="text-gray-700 hover:text-blue-600 font-medium">Data Kelas</a>
             </li>
             <li class="mb-4 flex items-center">
+                <i class="fas fa-file-alt text-gray-500 mr-2"></i>
+                <a href="{{ route('admin.attendance') }}" class="text-gray-700 hover:text-blue-600 font-medium">Kehadiran</a>
+            </li>
+            <li class="mb-4 flex items-center">
                 <i class="fas fa-chart-bar text-gray-500 mr-2"></i>
                 <a href="#" class="text-gray-700 hover:text-blue-600 font-medium">Laporan</a>
             </li>

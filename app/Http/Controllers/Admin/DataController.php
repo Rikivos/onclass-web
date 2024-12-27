@@ -21,7 +21,7 @@ class DataController extends Controller
             ->withCount('users')
             ->get();
 
-        return view('admin.data', compact('mentors', 'courses'));
+        return view('admin.mentor', compact('mentors', 'courses'));
     }
 
     // Start Mentor
@@ -95,6 +95,18 @@ class DataController extends Controller
     //End Mentor
 
     //Start Course
+    public function getCourse()
+    {
+        //mentors
+        $mentors = User::where('role', 'mentor')->with('courses')->get();
+
+        //Course
+        $courses = Course::with(['mentor'])
+            ->withCount('users')
+            ->get();
+
+        return view('admin.class', compact('mentors', 'courses'));
+    }
     //Add course
     public function storeCourse(Request $request)
     {
@@ -193,5 +205,5 @@ class DataController extends Controller
     }
 
 
-    //End Course
+    //End Courses
 }

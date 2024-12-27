@@ -9,6 +9,11 @@
     <link href="resources/css/app.css" rel="stylesheet">
     <link href="resources/js/app.js" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="resources/js/app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.0/dist/cdn.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-gray-100 font-sans">

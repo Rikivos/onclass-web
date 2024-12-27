@@ -7,7 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 
-class Users extends Authenticatable
+class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
@@ -56,8 +56,7 @@ class Users extends Authenticatable
 
     public function courses()
     {
-        return $this->belongsToMany(Course::class)
-            ->withTimestamps();
+        return $this->hasMany(Course::class, 'mentor_id', 'id');
     }
 
     public function courseUsers()

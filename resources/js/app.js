@@ -14,40 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 // Script to Handle Calendar From dashboard
-document.addEventListener("DOMContentLoaded", function () {
-    // Mini Calendar
-    const miniCalendarEl = document.getElementById("mini-calendar");
-    const miniCalendar = new FullCalendar.Calendar(miniCalendarEl, {
-        initialView: 'dayGridMonth',
-        headerToolbar: false, 
-        fixedWeekCount: false,
-        dayMaxEvents: false,   
-        height: 'auto',     
-        events: [
-            { title: 'Daily Standup', start: '2024-01-02' },
-        ],
-    });
-    miniCalendar.render();
 
-    // Kalender Utama
-    const mainCalendarEl = document.getElementById("main-calendar");
-    const mainCalendar = new FullCalendar.Calendar(mainCalendarEl, {
-        initialView: 'dayGridMonth',
-        headerToolbar: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'dayGridMonth,timeGridWeek,timeGridDay'
-        },
-        events: [
-            { title: 'Daily Standup', start: '2024-01-02T08:00:00' },
-            { title: 'Budget Review', start: '2024-01-04T09:00:00' },
-            { title: 'Sasha Jay 121', start: '2024-01-05T10:00:00' },
-            { title: 'Web Team Progress', start: '2024-01-11T11:00:00' },
-            { title: 'Social team briefing', start: '2024-01-12T12:00:00' },
-        ],
-    });
-    mainCalendar.render();
-});
 
 // Script to Handle Modal From logbook
 // Modal Handling
@@ -113,13 +80,15 @@ pauseButton.onclick = video.pause.bind(video) || (() => {
 screenshotButton.onclick = () => {
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
-    canvas.getContext('2d').drawImage(video, 0, 0);
-    const imageURL = canvas.toDataURL('image/jpeg/png/jpg');
-    
-    // Tampilkan gambar di form
+    canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+
+    const imageURL = canvas.toDataURL('image/jpeg');
     screenshotImage.src = imageURL;
     screenshotPreview.style.display = 'block';
+
+    document.getElementById('screenshotImage').value = imageURL;
 };
+
 
 // Script to Handle Delete Screenshot
 const deleteScreenshotButton = document.getElementById('deleteScreenshotButton');
@@ -127,4 +96,5 @@ deleteScreenshotButton.onclick = () => {
     // Delete Image from form
     screenshotImage.src = '';
     screenshotPreview.style.display = 'none';
+    document.getElementById('screenshotImage').value = '';
 };

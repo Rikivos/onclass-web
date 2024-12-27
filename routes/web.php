@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return redirect()->route('courses.index');
-});
+})->middleware('auth');
 
 
 //auth

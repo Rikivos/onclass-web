@@ -41,8 +41,10 @@ Route::post('/admin/mentor/delete', [AdminDataController::class, 'addMentor']);
 
 Route::prefix('admin')->group(function () {
     Route::view('/dashboard', 'admin.dashboard')->name('admin.dashboard');
-    Route::get('/data', [AdminDataController::class, 'getMentor'])->name('admin.data');
+    Route::get('/mentor', [AdminDataController::class, 'getMentor'])->name('admin.mentor');
+    Route::get('/class', [AdminDataController::class, 'getCourse'])->name('admin.class');
 });
+Route::get('/mentor', [AdminDataController::class, 'search']);
 
 
 //end admin

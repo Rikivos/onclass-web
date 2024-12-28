@@ -39,7 +39,7 @@ Route::get('/logbook', [LogbookController::class, 'indexByCourse'])->name('logbo
 Route::get('/admin/mentor', [AdminDataMentorController::class, 'getMentor']);
 Route::post('/admin/mentor/add', [AdminDataMentorController::class, 'addMentor'])->name('addMentor');
 Route::post('/admin/mentor/edit-role', [AdminDataMentorController::class, 'editMentorRole'])->name('admin.mentor.editRole');
-Route::post('/admin/mentor/delete', [AdminDataMentorController::class, 'destroyMentor']);
+Route::post('/admin/mentor/destroy', [AdminDataMentorController::class, 'destroyMentor']);
 
 //Course
 Route::post('/admin/course/add', [AdminDataCourseController::class, 'storeCourse'])->name('store.course');

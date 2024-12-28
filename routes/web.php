@@ -37,8 +37,8 @@ Route::get('/logbook', [LogbookController::class, 'indexByCourse'])->name('logbo
 
 //mentor
 Route::get('/admin/mentor', [AdminDataMentorController::class, 'getMentor']);
-Route::post('/admin/mentor/add', [AdminDataMentorController::class, 'addMentor']);
-Route::post('/admin/mentor/delete', [AdminDataMentorController::class, 'addMentor']);
+Route::post('/admin/mentor/add', [AdminDataMentorController::class, 'addMentor'])->name('addMentor');
+Route::post('/admin/mentor/delete', [AdminDataMentorController::class, 'destroyMentor']);
 
 Route::prefix('admin')->group(function () {
     Route::view('/dashboard', 'admin.dashboard')->name('admin.dashboard');

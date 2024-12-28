@@ -26,31 +26,21 @@ class DataMentorController extends Controller
         ]);
 
         try {
-            $user = User::findOrFail($request->nim);
+            $user = User::where('nim', $request->nim)->firstOrFail();
 
             if ($user->role === 'mentor') {
-                return response()->json([
-                    'status' => 'error',
-                    'message' => 'User is already a mentor.',
-                ], 400);
+                return back()->withErrors(['error' => 'User is already a mentor.']);
             }
 
             $user->role = 'mentor';
             $user->save();
 
-            return response()->json([
-                'status' => 'success',
-                'message' => 'User role updated to mentor successfully.',
-                'data' => $user,
-            ], 200);
+            return redirect()->back()->with('success', 'User role updated to mentor successfully.');
         } catch (\Exception $e) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'An error occurred while updating the user role.',
-                'error' => $e->getMessage(),
-            ], 500);
+            return back()->withErrors(['error' => 'An error occurred: ' . $e->getMessage()]);
         }
     }
+
 
     //Delete Mentor
     public function deleteMentor(Request $request)

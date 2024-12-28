@@ -220,15 +220,42 @@
                     .then((data) => {
                         console.log('Sukses:', data);
                         this.showEditModal = false;
-                        Swal.fire('Berhasil!', 'Data berhasil diperbarui.', 'success');
+                        Swal.fire({
+                            title: 'Berhasil!',
+                            text: 'Data berhasil diperbarui.',
+                            icon: 'success',
+                            confirmButtonText: 'OK',
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                // Refresh halaman setelah tombol "OK" diklik
+                                location.reload();
+                            }
+                        });
                     })
                     .catch((error) => {
                         console.error('Error:', error);
                         Swal.fire('Error!', 'Gagal memperbarui data.', 'error');
                     });
+            },
+
+            deleteData(courseId) {
+                Swal.fire({
+                    title: 'Yakin ingin menghapus?',
+                    text: 'Data akan dihapus secara permanen!',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, hapus!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Hapus data di backend melalui AJAX
+                        // Contoh placeholder
+                        Swal.fire('Berhasil!', 'Data berhasil dihapus.', 'success');
+                    }
+                });
             }
-
-
         };
     }
 

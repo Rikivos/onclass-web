@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Str;
 
 class DataMentorController extends Controller
@@ -36,10 +37,13 @@ class DataMentorController extends Controller
             $user->save();
 
             return redirect()->back()->with('success', 'User role updated to mentor successfully.');
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return back()->withErrors(['error' => 'User with the specified NIM was not found.']);
         } catch (\Exception $e) {
             return back()->withErrors(['error' => 'An error occurred: ' . $e->getMessage()]);
         }
     }
+
 
 
     //Delete Mentor

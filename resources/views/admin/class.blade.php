@@ -120,7 +120,7 @@
                                 </button>
 
                                 <button class="bg-red-500 text-white px-4 py-2 rounded"
-                                    @click="deleteData('{{ $course->id }}')">
+                                    @click="deleteCourse('{{ $course->course_id }}')">
                                     Hapus
                                 </button>
                             </td>
@@ -217,12 +217,10 @@
                             title: 'Berhasil!',
                             text: 'Data berhasil diperbarui.',
                             icon: 'success',
-                            confirmButtonText: 'OK',
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                location.reload();
-                            }
+                            timer: 1500,
+                            showConfirmButton: false,
                         });
+                        setTimeout(() => location.reload(), 1500);
                     })
                     .catch((error) => {
                         console.error('Error:', error);
@@ -230,7 +228,7 @@
                     });
             },
 
-            deleteData(courseId) {
+            deleteCourse(id) {
                 Swal.fire({
                     title: 'Yakin ingin menghapus?',
                     text: 'Data akan dihapus secara permanen!',
@@ -239,15 +237,37 @@
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
                     confirmButtonText: 'Ya, hapus!',
-                    cancelButtonText: 'Batal'
+                    cancelButtonText: 'Batal',
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        // Hapus data di backend melalui AJAX
-                        // Contoh placeholder
-                        Swal.fire('Berhasil!', 'Data berhasil dihapus.', 'success');
+                        axios
+                            .delete(`/admin/course/delete/${id}`)
+                            .then((response) => {
+                                if (response.status === 200) {
+                                    Swal.fire({
+                                        title: 'Berhasil!',
+                                        text: response.data.message,
+                                        icon: 'success',
+                                        timer: 1500,
+                                        showConfirmButton: false,
+                                    });
+                                    setTimeout(() => location.reload(), 1500);
+                                } else {
+                                    Swal.fire('Gagal!', response.data.message, 'error');
+                                }
+                            })
+                            .catch((error) => {
+                                Swal.fire(
+                                    'Gagal!',
+                                    error.response?.data?.message || 'Terjadi kesalahan.',
+                                    'error'
+                                );
+                            });
                     }
                 });
             }
+
+
         };
     }
 

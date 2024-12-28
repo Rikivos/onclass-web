@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\Admin\DataController as AdminDataController;
+use App\Http\Controllers\Admin\DataMentorController as AdminDataMentorController;
+use App\Http\Controllers\Admin\DataCourseController as AdminDataCourseController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\LogbookController;
@@ -35,17 +36,17 @@ Route::get('/logbook', [LogbookController::class, 'indexByCourse'])->name('logbo
 //Admin
 
 //mentor
-Route::get('/admin/mentor', [AdminDataController::class, 'getMentor']);
-Route::post('/admin/mentor/add', [AdminDataController::class, 'addMentor']);
-Route::post('/admin/mentor/delete', [AdminDataController::class, 'addMentor']);
+Route::get('/admin/mentor', [AdminDataMentorController::class, 'getMentor']);
+Route::post('/admin/mentor/add', [AdminDataMentorController::class, 'addMentor']);
+Route::post('/admin/mentor/delete', [AdminDataMentorController::class, 'addMentor']);
 
 Route::prefix('admin')->group(function () {
     Route::view('/dashboard', 'admin.dashboard')->name('admin.dashboard');
-    Route::get('/mentor', [AdminDataController::class, 'getMentor'])->name('admin.mentor');
-    Route::get('/class', [AdminDataController::class, 'getCourse'])->name('admin.class');
-    Route::view('/attendance','admin.attendance ')->name('admin.attendance');
+    Route::get('/mentor', [AdminDataMentorController::class, 'getMentor'])->name('admin.mentor');
+    Route::get('/class', [AdminDataCourseController::class, 'getAllCourse'])->name('admin.class');
+    Route::view('/attendance', 'admin.attendance ')->name('admin.attendance');
 });
-Route::get('/mentor', [AdminDataController::class, 'search']);
+Route::get('/mentor', [AdminDataMentorController::class, 'search']);
 
 
 //end admin

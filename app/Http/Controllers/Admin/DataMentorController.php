@@ -43,8 +43,24 @@ class DataMentorController extends Controller
             return back()->withErrors(['error' => 'An error occurred: ' . $e->getMessage()]);
         }
     }
+    // Edit mentor role
+    public function editMentorRole(Request $request)
+    {
+        $request->validate([
+            'nim' => 'required|exists:users,nim',
+            'role' => 'required|in:mentor,mente',
+        ]);
 
+        try {
+            $user = User::where('nim', $request->nim)->firstOrFail();
+            $user->role = $request->role;
+            $user->save();
 
+            return redirect()->back()->with('success', 'Role has been updated successfully.');
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => 'An error occurred: ' . $e->getMessage()]);
+        }
+    }
 
     //Delete Mentor
     public function deleteMentor(Request $request)

@@ -183,20 +183,14 @@
             openEditModal(event) {
                 const button = event.currentTarget;
 
-                console.log(button);
-                console.log(button.getAttribute('data-id'));
-
                 this.editCourse.course_id = button.getAttribute('data-id');
                 this.editCourse.course_title = button.getAttribute('data-title');
                 this.editCourse.mentor_id = button.getAttribute('data-mentor-id');
 
-                console.log(this.editCourse);
                 this.showEditModal = true;
             },
 
             updateData() {
-                console.log(this.editCourse); // Debug: Pastikan data `editCourse` tidak kosong
-
                 const csrfToken = document.querySelector('form input[name="_token"]').value;
 
                 if (!this.editCourse.course_id) {
@@ -204,7 +198,6 @@
                     return;
                 }
 
-                // Lakukan AJAX atau fetch untuk mengupdate data
                 fetch(`/admin/course/update/${this.editCourse.course_id}`, {
                         method: 'POST',
                         headers: {
@@ -218,7 +211,6 @@
                     })
                     .then((response) => response.json())
                     .then((data) => {
-                        console.log('Sukses:', data);
                         this.showEditModal = false;
                         Swal.fire({
                             title: 'Berhasil!',
@@ -227,7 +219,6 @@
                             confirmButtonText: 'OK',
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                // Refresh halaman setelah tombol "OK" diklik
                                 location.reload();
                             }
                         });

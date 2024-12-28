@@ -50,20 +50,6 @@ class DataCourseController extends Controller
         return redirect()->back()->with('success', 'Course berhasil ditambahkan!');
     }
 
-
-    //Show Edit
-    public function editCourse($id)
-    {
-        $course = Course::find($id);
-
-        if (!$course) {
-            return redirect()->route('courses.index')->with('error', 'Course tidak ditemukan.');
-        }
-
-        return view('admin.edit_course', compact('course'));
-    }
-
-
     //Update Course
     public function updateCourse(Request $request, $id)
     {
@@ -78,7 +64,7 @@ class DataCourseController extends Controller
             return response()->json(['error' => 'Course tidak ditemukan.'], 404);
         }
 
-        $mentor = User::find($validated['mentor_id']);  // Menggunakan find() untuk mencari mentor berdasarkan ID
+        $mentor = User::find($validated['mentor_id']);
 
         if (!$mentor || $mentor->role !== 'mentor') {
             return response()->json(['error' => 'Mentor dengan ID tersebut tidak ditemukan atau bukan seorang mentor.'], 404);

@@ -82,7 +82,7 @@ class DataCourseController extends Controller
     //Delete Course
     public function destroyCourse($id)
     {
-        $course = Course::find($id);
+        $course = Course::where('course_id', $id)->first();
 
         if (!$course) {
             return response()->json([
@@ -94,6 +94,6 @@ class DataCourseController extends Controller
 
         return response()->json([
             'message' => 'Course berhasil dihapus.',
-        ]);
+        ], 200);
     }
 }

@@ -240,14 +240,18 @@
                     if (result.isConfirmed) {
                         axios
                             .post('/admin/mentor/destroy', {
-                                nim: nim
+                                nim: nim,
                             })
                             .then((response) => {
                                 if (response.data.status === 'success') {
-                                    Swal.fire('Berhasil!', response.data.message, 'success');
-                                    if (result.isConfirmed) {
-                                        location.reload();
-                                    }
+                                    Swal.fire({
+                                        title: 'Berhasil!',
+                                        text: response.data.message,
+                                        icon: 'success',
+                                        timer: 1500,
+                                        showConfirmButton: false,
+                                    });
+                                    setTimeout(() => location.reload(), 1500);
                                 } else {
                                     Swal.fire('Gagal!', response.data.message, 'error');
                                 }
@@ -262,6 +266,7 @@
                     }
                 });
             }
+
 
         };
     }

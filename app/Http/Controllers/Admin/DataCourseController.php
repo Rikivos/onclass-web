@@ -30,15 +30,13 @@ class DataCourseController extends Controller
     {
         $validated = $request->validate([
             'course_title' => 'required|string|max:255',
-            'mentor_nim' => 'required|string|exists:users,nim',
+            'mentor_id' => 'required|exists:users,id',
         ]);
 
-        $mentor = User::where('nim', $validated['mentor_nim'])->where('role', 'mentor')->first();
+        $mentor = User::where('id', $validated['mentor_id'])->where('role', 'mentor')->first();
 
         if (!$mentor) {
-            return response()->json([
-                'message' => 'Mentor dengan NIM tersebut tidak ditemukan atau bukan seorang mentor.',
-            ], 404);
+            return back()->withErrors(['error' => 'Mentor dengan ID tersebut tidak ditemukan atau bukan seorang mentor.']);
         }
 
         $course_slug = Str::slug($validated['course_title'], '-');
@@ -49,11 +47,9 @@ class DataCourseController extends Controller
             'mentor_id' => $mentor->id,
         ]);
 
-        return response()->json([
-            'message' => 'Course berhasil ditambahkan!',
-            'course' => $course,
-        ], 201);
+        return redirect()->back()->with('success', 'Course berhasil ditambahkan!');
     }
+
 
     //Show Edit
     public function editCourse($id)

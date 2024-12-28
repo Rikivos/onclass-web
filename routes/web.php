@@ -40,6 +40,9 @@ Route::get('/admin/mentor', [AdminDataMentorController::class, 'getMentor']);
 Route::post('/admin/mentor/add', [AdminDataMentorController::class, 'addMentor'])->name('addMentor');
 Route::post('/admin/mentor/delete', [AdminDataMentorController::class, 'destroyMentor']);
 
+//Course
+Route::post('/admin/course/add', [AdminDataCourseController::class, 'storeCourse'])->name('store.course');
+
 Route::prefix('admin')->group(function () {
     Route::view('/dashboard', 'admin.dashboard')->name('admin.dashboard');
     Route::get('/mentor', [AdminDataMentorController::class, 'getMentor'])->name('admin.mentor');

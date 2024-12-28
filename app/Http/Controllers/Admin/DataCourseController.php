@@ -79,8 +79,6 @@ class DataCourseController extends Controller
         return response()->json(['success' => 'Course berhasil diperbarui!']);
     }
 
-
-
     //Delete Course
     public function destroyCourse($id)
     {

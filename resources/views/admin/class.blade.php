@@ -173,6 +173,7 @@
 <script>
     function courseManager() {
         return {
+            showAddModal: false,
             showEditModal: false,
             editCourse: {
                 course_id: null,

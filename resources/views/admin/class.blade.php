@@ -112,9 +112,13 @@
                             <td class="p-2">{{ $course->mentor->name ?? 'Tidak ada mentor' }}</td>
                             <td class="p-2">
                                 <button class="bg-blue-500 text-white px-4 py-2 rounded"
-                                    @click="editCourse = { id: '{{ $course->id }}', course_title: '{{ $course->course_title }}', mentor: { name: '{{ $course->mentor->name ?? '' }}' }}; showEditModal = true;">
+                                    data-id="{{ $course->course_id }}"
+                                    data-title="{{ $course->course_title }}"
+                                    data-mentor-id="{{ $course->mentor->id ?? '' }}"
+                                    @click="openEditModal($event)">
                                     Edit
                                 </button>
+
                                 <button class="bg-red-500 text-white px-4 py-2 rounded"
                                     @click="deleteData('{{ $course->id }}')">
                                     Hapus
@@ -131,16 +135,16 @@
                     style="display: none;" x-transition>
                     <div class="bg-white p-6 rounded shadow-md w-1/3">
                         <h2 class="text-lg font-semibold mb-4">Edit Data</h2>
-                        <form @submit.prevent="updateData()">
+                        <form @submit.prevent="updateData">
+                            @csrf
+                            <input type="hidden" x-model="editCourse.course_id" />
                             <div class="mb-4">
-                                <label for="edit_course_title" class="block text-sm font-medium text-gray-700">Judul
-                                    Kelompok</label>
+                                <label for="edit_course_title" class="block text-sm font-medium text-gray-700">Judul Kelompok</label>
                                 <input type="text" id="edit_course_title" x-model="editCourse.course_title"
                                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" />
                             </div>
                             <div class="mb-4">
-                                <label for="edit_mentor_name"
-                                    class="block text-sm font-medium text-gray-700">Mentor</label>
+                                <label for="edit_mentor_name" class="block text-sm font-medium text-gray-700">Mentor</label>
                                 <select id="edit_mentor_name" x-model="editCourse.mentor_id"
                                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                                     <option value="" disabled>Pilih Mentor</option>
@@ -161,6 +165,7 @@
                         </form>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -171,26 +176,58 @@
             showAddModal: false,
             showEditModal: false,
             editCourse: {
+                course_id: null,
                 course_title: '',
-                mentor_id: null, // ID mentor untuk dropdown
-            },
-            newCourse: {
-                course_title: '',
-                mentor_id: null, // ID mentor untuk dropdown
+                mentor_id: null,
             },
 
-            addData() {
-                // Simpan data ke backend melalui AJAX
-                // Contoh placeholder
-                this.showAddModal = false;
-                Swal.fire('Berhasil!', 'Data berhasil ditambahkan.', 'success');
+            openEditModal(event) {
+                const button = event.currentTarget;
+
+                this.editCourse.course_id = button.getAttribute('data-id');
+                this.editCourse.course_title = button.getAttribute('data-title');
+                this.editCourse.mentor_id = button.getAttribute('data-mentor-id');
+
+                this.showEditModal = true;
             },
 
             updateData() {
-                // Perbarui data ke backend melalui AJAX
-                // Contoh placeholder
-                this.showEditModal = false;
-                Swal.fire('Berhasil!', 'Data berhasil diperbarui.', 'success');
+                const csrfToken = document.querySelector('form input[name="_token"]').value;
+
+                if (!this.editCourse.course_id) {
+                    console.error('Course ID tidak ditemukan!');
+                    return;
+                }
+
+                fetch(`/admin/course/update/${this.editCourse.course_id}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken,
+                        },
+                        body: JSON.stringify({
+                            course_title: this.editCourse.course_title,
+                            mentor_id: this.editCourse.mentor_id,
+                        }),
+                    })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        this.showEditModal = false;
+                        Swal.fire({
+                            title: 'Berhasil!',
+                            text: 'Data berhasil diperbarui.',
+                            icon: 'success',
+                            confirmButtonText: 'OK',
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload();
+                            }
+                        });
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                        Swal.fire('Error!', 'Gagal memperbarui data.', 'error');
+                    });
             },
 
             deleteData(courseId) {

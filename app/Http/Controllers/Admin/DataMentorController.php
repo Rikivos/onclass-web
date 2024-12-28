@@ -63,14 +63,14 @@ class DataMentorController extends Controller
     }
 
     //Delete Mentor
-    public function deleteMentor(Request $request)
+    public function destroyMentor(Request $request)
     {
         $request->validate([
             'nim' => 'required',
         ]);
 
         try {
-            $user = User::findOrFail($request->user_id);
+            $user = User::where('nim', $request->nim)->firstOrFail();
 
             if ($user->role !== 'mentor') {
                 return response()->json([

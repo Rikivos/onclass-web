@@ -69,23 +69,19 @@ class DataCourseController extends Controller
     {
         $validated = $request->validate([
             'course_title' => 'required|string|max:255',
-            'mentor_nim' => 'required|string|exists:users,nim',
+            'mentor_id' => 'required|exists:users,id',
         ]);
 
         $course = Course::find($id);
 
         if (!$course) {
-            return response()->json([
-                'message' => 'Course tidak ditemukan.',
-            ], 404);
+            return response()->json(['error' => 'Course tidak ditemukan.'], 404);
         }
 
-        $mentor = User::where('nim', $validated['mentor_nim'])->where('role', 'mentor')->first();
+        $mentor = User::find($validated['mentor_id']);  // Menggunakan find() untuk mencari mentor berdasarkan ID
 
-        if (!$mentor) {
-            return response()->json([
-                'message' => 'Mentor dengan NIM tersebut tidak ditemukan atau bukan seorang mentor.',
-            ], 404);
+        if (!$mentor || $mentor->role !== 'mentor') {
+            return response()->json(['error' => 'Mentor dengan ID tersebut tidak ditemukan atau bukan seorang mentor.'], 404);
         }
 
         $course->update([
@@ -94,11 +90,10 @@ class DataCourseController extends Controller
             'mentor_id' => $mentor->id,
         ]);
 
-        return response()->json([
-            'message' => 'Course berhasil diperbarui!',
-            'course' => $course,
-        ]);
+        return response()->json(['success' => 'Course berhasil diperbarui!']);
     }
+
+
 
     //Delete Course
     public function destroyCourse($id)

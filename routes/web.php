@@ -43,6 +43,8 @@ Route::post('/admin/mentor/delete', [AdminDataMentorController::class, 'destroyM
 
 //Course
 Route::post('/admin/course/add', [AdminDataCourseController::class, 'storeCourse'])->name('store.course');
+Route::post('/admin/course/update/{id}', [AdminDataCourseController::class, 'updateCourse']);
+
 
 Route::prefix('admin')->group(function () {
     Route::view('/dashboard', 'admin.dashboard')->name('admin.dashboard');

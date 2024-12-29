@@ -4,10 +4,10 @@ use App\Http\Controllers\Admin\DataMentorController as AdminDataMentorController
 use App\Http\Controllers\Admin\DataCourseController as AdminDataCourseController;
 use App\Http\Controllers\Admin\AnnouncementController as AnnouncementController;
 use App\Http\Controllers\Home\HomeController as HomeController;
+use App\Http\Controllers\MyCourse\MyCourseController as MyCourseController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\LogbookController;
-use App\Http\Controllers\MyCourseController;
 use Illuminate\Support\Facades\Route;
 
 //home
@@ -23,9 +23,13 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 //Courses
 Route::get('/courses/{slug}', [CourseController::class, 'search'])->name('courses.search');
 Route::post('/courses/{slug}/enroll', [CourseController::class, 'enroll'])->name('courses.enroll');
-Route::get('/mycourse', [MyCourseController::class, 'index'])->name('mycourse');
-Route::get('/mycourse/{slug}', [CourseController::class, 'show'])->name('courses.show');
 
+//MyCourse
+Route::get('/mycourse', [MyCourseController::class, 'index'])->name('mycourse');
+Route::get('/mycourse/{slug}', [MyCourseController::class, 'showDetail'])->name('courses.show');
+Route::get('/mycourse/participant/{slug}', [MyCourseController::class, 'showParticipant'])->name('participant');
+
+//Enroll
 Route::get('/enroll/{slug}', [CourseController::class, 'view'])->name('enroll');;
 Route::post('/enroll/{slug}')->name('enroll.post');
 
@@ -34,15 +38,15 @@ Route::post('/logbook', [LogbookController::class, 'add'])->name('logbook.add');
 Route::get('/logbook', [LogbookController::class, 'indexByCourse'])->name('logbook.show');
 
 
-//Admin
+//Admin start
 
-//mentor
+//Admin mentor
 Route::get('/admin/mentor', [AdminDataMentorController::class, 'getMentor']);
 Route::post('/admin/mentor/add', [AdminDataMentorController::class, 'addMentor'])->name('addMentor');
 Route::post('/admin/mentor/edit-role', [AdminDataMentorController::class, 'editMentorRole'])->name('admin.mentor.editRole');
 Route::post('/admin/mentor/destroy', [AdminDataMentorController::class, 'destroyMentor']);
 
-//Course
+//Admin course
 Route::post('/admin/course/add', [AdminDataCourseController::class, 'storeCourse'])->name('store.course');
 Route::post('/admin/course/update/{id}', [AdminDataCourseController::class, 'updateCourse']);
 Route::delete('/admin/course/delete/{id}', [AdminDataCourseController::class, 'destroyCourse']);
@@ -66,7 +70,3 @@ Route::get('/dashboard', function () {
 Route::get('/mentoring', function () {
     return view('mentoring');
 })->middleware('auth');
-
-Route::get('/participant', function () {
-    return view('participant');
-});

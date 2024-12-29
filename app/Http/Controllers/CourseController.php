@@ -53,13 +53,4 @@ class CourseController extends Controller
 
         return redirect()->route('courses.show', $slug)->with('message', 'Successfully enrolled in the course!');
     }
-
-    // Method to display course details
-    public function show($slug)
-    {
-        $course = Course::where('course_slug', $slug)->firstOrFail();
-        $modules = Module::where('course_id', $course->course_id)->get();
-
-        return view('mentoring', compact('course'));
-    }
 }

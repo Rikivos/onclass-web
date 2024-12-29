@@ -10,13 +10,17 @@ use App\Http\Controllers\LogbookController;
 use App\Http\Controllers\MyCourseController;
 use Illuminate\Support\Facades\Route;
 
+//home
+Route::get('/', [HomeController::class, 'index'])->name('courses.index');
+Route::get('/announcement', [HomeController::class, 'getAnnouncements'])->name('announcement');
+Route::get('/search/{slug}', [HomeController::class, 'search'])->name('search');
+
 //auth
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 //Courses
-Route::get('/', [HomeController::class, 'index'])->name('courses.index');
 Route::get('/courses/{slug}', [CourseController::class, 'search'])->name('courses.search');
 Route::post('/courses/{slug}/enroll', [CourseController::class, 'enroll'])->name('courses.enroll');
 Route::get('/mycourse', [MyCourseController::class, 'index'])->name('mycourse');
@@ -49,12 +53,10 @@ Route::prefix('admin')->group(function () {
     Route::get('/class', [AdminDataCourseController::class, 'getAllCourse'])->name('admin.class');
     Route::view('/attendance', 'admin.attendance ')->name('admin.attendance');
 });
-
-
-
 //end admin
 
-//announcement download
+//announcement 
+Route::post('/upload-announcement', [AnnouncementController::class, 'upload']);
 Route::get('/download-announcement/{fileName}', [AnnouncementController::class, 'download']);
 
 Route::get('/dashboard', function () {

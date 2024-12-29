@@ -54,14 +54,6 @@ class CourseController extends Controller
         return redirect()->route('courses.show', $slug)->with('message', 'Successfully enrolled in the course!');
     }
 
-
-    // Method to display all courses with names and mentor names
-    public function index()
-    {
-        $courses = Course::with('mentor:id,name')->get();
-        return view('home', compact('courses'));
-    }
-
     // Method to display course details
     public function show($slug)
     {
@@ -69,17 +61,5 @@ class CourseController extends Controller
         $modules = Module::where('course_id', $course->course_id)->get();
 
         return view('mentoring', compact('course'));
-    }
-
-    // Method to search
-    public function search($slug)
-    {
-        $course = Course::where('course_slug', $slug)->first();
-
-        if (!$course) {
-            return redirect()->back()->with('error', 'Kelas tidak ditemukan.');
-        }
-
-        return view('courses.show', compact('course'));
     }
 }

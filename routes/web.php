@@ -2,16 +2,13 @@
 
 use App\Http\Controllers\Admin\DataMentorController as AdminDataMentorController;
 use App\Http\Controllers\Admin\DataCourseController as AdminDataCourseController;
+use App\Http\Controllers\Admin\AnnouncementController as AnnouncementController;
+use App\Http\Controllers\Home\HomeController as HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\LogbookController;
 use App\Http\Controllers\MyCourseController;
 use Illuminate\Support\Facades\Route;
-
-Route::get('/', function () {
-    return redirect()->route('courses.index');
-})->middleware('auth');
-
 
 //auth
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
@@ -19,7 +16,7 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 //Courses
-Route::get('/', [CourseController::class, 'index'])->name('courses.index');
+Route::get('/', [HomeController::class, 'index'])->name('courses.index');
 Route::get('/courses/{slug}', [CourseController::class, 'search'])->name('courses.search');
 Route::post('/courses/{slug}/enroll', [CourseController::class, 'enroll'])->name('courses.enroll');
 Route::get('/mycourse', [MyCourseController::class, 'index'])->name('mycourse');
@@ -56,6 +53,9 @@ Route::prefix('admin')->group(function () {
 
 
 //end admin
+
+//announcement download
+Route::get('/download-announcement/{fileName}', [AnnouncementController::class, 'download']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

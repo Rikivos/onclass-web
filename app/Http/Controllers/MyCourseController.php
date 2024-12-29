@@ -23,9 +23,11 @@ class MyCourseController extends Controller
             return view('emptyCourse');
         }
 
+        $roles = $user->role;
+
         $courseId = $courseUsers->first()->course_id;
         $courses = Course::with('mentor:id,name')->whereIn('course_id', $courseUsers->pluck('course_id'))->get();
 
-        return view('mycourse', compact('courses'));
+        return view('mycourse', compact('courses', 'roles'));
     }
 }

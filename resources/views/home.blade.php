@@ -62,7 +62,7 @@
         return {
             announcement: null,
             async fetchAnnouncement() {
-                const response = await fetch('/api/announcements/1');
+                const response = await fetch('/announcements');
                 const data = await response.json();
                 this.announcement = data.data ? data.data : null;
             },

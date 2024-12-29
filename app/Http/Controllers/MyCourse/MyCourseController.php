@@ -33,6 +33,7 @@ class MyCourseController extends Controller
         return view('mycourse', compact('courses', 'roles'));
     }
 
+    //Get detail course
     public function showDetail($slug)
     {
         $course = Course::where('course_slug', $slug)->firstOrFail();
@@ -41,6 +42,7 @@ class MyCourseController extends Controller
         return view('mentoring', compact('course', 'modules'));
     }
 
+    //Get participant
     public function showParticipant($slug)
     {
         $course = Course::where('course_slug', $slug)->firstOrFail();

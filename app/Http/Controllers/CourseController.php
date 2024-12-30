@@ -25,7 +25,7 @@ class CourseController extends Controller
             return response()->json('data tidak ditemukan.');
         }
 
-        return view('enroll', compact('courses'));
+        return view('mentee.enroll', compact('courses'));
     }
 
     // Method to add the authenticated user to a course

@@ -14,5 +14,8 @@ class CourseUser extends Pivot
         'course_id',
     ];
 
-    // Define the relationship methods
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

@@ -39,7 +39,7 @@
                 </button>
                 <div class="absolute right-0 mt-2 w-48 bg-white shadow rounded hidden dropdown-menu">
                     <a href="/profile" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Profile</a>
-                    <form action="http://onclass-web-preview.up.railway.app/logout" method="POST">
+                    <form action="{{ route('logout') }}" method="POST">
                         @csrf <!-- Token CSRF untuk keamanan -->
                         <button type="submit" class="block w-full text-left px-4 py-2 text-gray-600 hover:bg-gray-100">Logout</button>
                     </form>
@@ -51,12 +51,12 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-    const profileButton = document.querySelector('.profile-button');
-    const dropdownMenu = document.querySelector('.dropdown-menu');
+        const profileButton = document.querySelector('.profile-button');
+        const dropdownMenu = document.querySelector('.dropdown-menu');
 
-    profileButton.addEventListener('click', () => {
-        dropdownMenu.classList.toggle('hidden');
+        profileButton.addEventListener('click', () => {
+            dropdownMenu.classList.toggle('block');
+        });
     });
-});
 </script>
 @endif

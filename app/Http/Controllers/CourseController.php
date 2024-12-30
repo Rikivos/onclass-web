@@ -25,7 +25,7 @@ class CourseController extends Controller
             return response()->json('data tidak ditemukan.');
         }
 
-        return view('enroll', compact('courses'));
+        return view('mentee.enroll', compact('courses'));
     }
 
     // Method to add the authenticated user to a course
@@ -52,34 +52,5 @@ class CourseController extends Controller
         ]);
 
         return redirect()->route('courses.show', $slug)->with('message', 'Successfully enrolled in the course!');
-    }
-
-
-    // Method to display all courses with names and mentor names
-    public function index()
-    {
-        $courses = Course::with('mentor:id,name')->get();
-        return view('home', compact('courses'));
-    }
-
-    // Method to display course details
-    public function show($slug)
-    {
-        $course = Course::where('course_slug', $slug)->firstOrFail();
-        $modules = Module::where('course_id', $course->course_id)->get();
-
-        return view('mentoring', compact('course'));
-    }
-
-    // Method to search
-    public function search($slug)
-    {
-        $course = Course::where('course_slug', $slug)->first();
-
-        if (!$course) {
-            return redirect()->back()->with('error', 'Kelas tidak ditemukan.');
-        }
-
-        return view('courses.show', compact('course'));
     }
 }

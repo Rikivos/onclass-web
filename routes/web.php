@@ -65,7 +65,7 @@ Route::post('/upload-announcement', [AnnouncementController::class, 'upload']);
 Route::get('/download-announcement/{fileName}', [AnnouncementController::class, 'download']);
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('mentee.dashboard');
 })->middleware('auth');
 
 Route::get('/mentoring', function () {

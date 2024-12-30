@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\DataMentorController as AdminDataMentorController;
 use App\Http\Controllers\Admin\DataCourseController as AdminDataCourseController;
 use App\Http\Controllers\Admin\AnnouncementController as AnnouncementController;
+use App\Http\Controllers\Admin\DashboardAdminController as DashboardAdminController;
 use App\Http\Controllers\Home\HomeController as HomeController;
 use App\Http\Controllers\MyCourse\MyCourseController as MyCourseController;
 use App\Http\Controllers\AuthController;
@@ -52,7 +53,7 @@ Route::post('/admin/course/update/{id}', [AdminDataCourseController::class, 'upd
 Route::delete('/admin/course/delete/{id}', [AdminDataCourseController::class, 'destroyCourse']);
 
 Route::prefix('admin')->group(function () {
-    Route::view('/dashboard', 'admin.dashboard')->name('admin.dashboard');
+    Route::get('/dashboard', [DashboardAdminController::class, 'index'], 'admin.dashboard')->name('admin.dashboard');
     Route::get('/mentor', [AdminDataMentorController::class, 'getMentor'])->name('admin.mentor');
     Route::get('/class', [AdminDataCourseController::class, 'getAllCourse'])->name('admin.class');
     Route::view('/attendance', 'admin.attendance ')->name('admin.attendance');

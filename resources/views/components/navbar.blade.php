@@ -18,12 +18,13 @@
             <li>
                 <a href="{{ route('mycourse') }}" class="text-gray-600 hover:text-black {{ request()->is('mycourse') ? 'text-black font-semibold' : '' }}">Mentoring</a>
             </li>
-            <li>
-                <a href="{{ route('logbook.show') }}" class="text-gray-600 hover:text-black {{ request()->is('logbook') ? 'text-black font-semibold' : '' }}">Logbook</a>
-            </li>
+                @if(!request()->is('/') && !request()->is('dashboard') && !request()->is('mentoring') && !request()->is('mycourse') && !request()->is('mycourse/*'))
+                <li>
+                    <a href="{{ route('logbook.show') }}" class="text-gray-600 hover:text-black {{ request()->is('logbook') ? 'text-black font-semibold' : '' }}">Logbook</a>
+                </li>
+                @endif
             @endif
         </ul>
-
 
         <!-- Actions -->
         <div class="flex items-center space-x-4">

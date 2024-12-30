@@ -39,7 +39,7 @@ class LogbookController extends Controller
             'reports' => $reports
         ];
 
-        return view('logbook', compact('data'));
+        return view('mentee.logbook', compact('data'));
     }
 
 

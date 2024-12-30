@@ -13,7 +13,7 @@ class HomeController extends Controller
     public function index()
     {
         $courses = Course::with('mentor:id,name')->get();
-        return view('home', compact('courses'));
+        return view('mentee.home', compact('courses'));
     }
 
     // Method to search

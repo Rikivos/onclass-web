@@ -14,39 +14,35 @@
                 <img src="/images/timeline.svg" alt="No Activities" class="w-16 h-16">
                 <p class="text-gray-500 mt-2">No activities require action</p>
             </div>
-        </div>
 
-        <!-- Calendar Section -->
-        <!-- Calendar Section -->
-    <div class="bg-white shadow rounded-lg p-6 mb-6">
-        <h2 class="text-xl font-semibold mb-4">Calendar</h2>
-        <div class="grid grid-cols-4 gap-4 p-4 bg-white rounded-lg shadow-md outline outline-2 outline-gray-200">
-            
-            <!-- Sidebar Agenda -->
-            <div class="col-span-1 p-4 bg-white">
-                <!-- Mini Calendar -->
-                <div id="mini-calendar" class="mb-4"></div>
-
-                <!-- Agenda & Tugas -->
-                <div class="flex items-center mb-4">
-                    <img src="/images/agenda.png" alt="Agenda & Tugas" class="w-8 h-8 mr-4">
-                    <h3 class="text-lg font-bold">Agenda & Tugas</h3>
+                <h2 class="text-xl font-semibold mb-4 mt-4">Calendar</h2>
+                <div class="grid grid-cols-4 gap-4 p-4 bg-white rounded-lg shadow-md outline outline-2 outline-gray-200">
+                    
+                    <!-- Sidebar Agenda -->
+                    <div class="col-span-1 p-4 bg-white">
+                        <!-- Mini Calendar -->
+                        <div id="mini-calendar" class="mb-4"></div>
+        
+                        <!-- Agenda & Tugas -->
+                        <div class="flex items-center mb-4">
+                            <img src="/images/agenda.png" alt="Agenda & Tugas" class="w-8 h-8 mr-4">
+                            <h3 class="text-lg font-bold">Agenda & Tugas</h3>
+                        </div>
+                        <ul id="agenda-list">
+        
+                        </ul>
+                    </div>
+        
+                    <!-- Kalender Utama -->
+                    <div class="col-span-3">
+                        <div class="flex justify-between items-center p-4 bg-gray-800 text-white rounded-lg mb-4">
+                            <button id="btn-tambah-event" class="bg-blue-500 p-2 rounded-lg hover:bg-blue-600">Tambah Event</button>
+                            <span class="text-lg font-semibold">Event</span>
+                        </div>
+                        <div id="main-calendar"></div>
+                    </div>
                 </div>
-                <ul id="agenda-list">
-
-                </ul>
-            </div>
-
-            <!-- Kalender Utama -->
-            <div class="col-span-3">
-                <div class="flex justify-between items-center p-4 bg-gray-800 text-white rounded-lg mb-4">
-                    <button id="btn-tambah-event" class="bg-blue-500 p-2 rounded-lg hover:bg-blue-600">Tambah Event</button>
-                    <span class="text-lg font-semibold">Event</span>
-                </div>
-                <div id="main-calendar"></div>
-            </div>
         </div>
-    </div>
 </div>
 
 <!-- Modal Pop-up -->

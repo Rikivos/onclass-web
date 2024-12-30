@@ -71,3 +71,4 @@ Route::get('/dashboard', function () {
 Route::get('/mentoring', function () {
     return view('mentoring');
 })->middleware('auth');
+

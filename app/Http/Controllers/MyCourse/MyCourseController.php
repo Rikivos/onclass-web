@@ -22,7 +22,7 @@ class MyCourseController extends Controller
         $courseUsers = CourseUser::where('user_id', $user->id)->get();
 
         if ($courseUsers->isEmpty()) {
-            return view('emptyCourse');
+            return view('mentee.emptyCourse');
         }
 
         $roles = $user->role;
@@ -30,7 +30,7 @@ class MyCourseController extends Controller
         $courseId = $courseUsers->first()->course_id;
         $courses = Course::with('mentor:id,name')->whereIn('course_id', $courseUsers->pluck('course_id'))->get();
 
-        return view('mycourse', compact('courses', 'roles'));
+        return view('mentee.mycourse', compact('courses', 'roles'));
     }
 
     //Get detail course
@@ -39,7 +39,7 @@ class MyCourseController extends Controller
         $course = Course::where('course_slug', $slug)->firstOrFail();
         $modules = Module::where('course_id', $course->course_id)->get();
 
-        return view('mentoring', compact('course', 'modules'));
+        return view('mentee.mentoring', compact('course', 'modules'));
     }
 
     //Get participant
@@ -60,6 +60,6 @@ class MyCourseController extends Controller
             ];
         });
 
-        return view('participant', compact('user_course', 'course'));
+        return view('mentee.participant', compact('user_course', 'course'));
     }
 }

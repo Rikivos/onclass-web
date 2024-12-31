@@ -76,9 +76,8 @@ Route::get('/download-announcement/{fileName}', [AnnouncementController::class, 
 
 Route::get('/dashboard', function () {
     return view('mentee.dashboard');
-})->middleware('auth');
+})->middleware('auth')->name('mentee.dashboard');
 
 Route::get('/mentoring', function () {
     return view('mentoring');
 })->middleware('auth');
-

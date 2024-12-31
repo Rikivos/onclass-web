@@ -98,5 +98,5 @@ class LogbookController extends Controller
     // Edit logbook
 
 
-    // 
+    //
 }

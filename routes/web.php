@@ -35,8 +35,7 @@ Route::get('/enroll/{slug}', [CourseController::class, 'view'])->name('enroll');
 Route::post('/enroll/{slug}')->name('enroll.post');
 
 //logbook
-Route::post('/logbook', [LogbookController::class, 'add'])->name('logbook.add');
-Route::get('/logbook', [LogbookController::class, 'indexByCourse'])->name('logbook.show');
+
 
 
 //Admin start
@@ -60,7 +59,18 @@ Route::prefix('admin')->group(function () {
 });
 //end admin
 
-//announcement 
+//mentor
+Route::prefix('mentor')->group(function () {
+    Route::view('/dashboard', 'mentor.dashboard ')->name('mentor.dashboard');
+    Route::get('/home',  [HomeController::class, 'index'])->name('courses.index');
+    Route::get('/mycourse', [MyCourseController::class, 'index'])->name('mycourse');
+    Route::get('/mycourse/{slug}', [MyCourseController::class, 'showDetail'])->name('courses.show');
+    Route::get('/mycourse/participant/{slug}', [MyCourseController::class, 'showParticipant'])->name('participant');
+    Route::post('/logbook', [LogbookController::class, 'add'])->name('logbook.add');
+    Route::get('/logbook', [LogbookController::class, 'indexByCourse'])->name('logbook.show');
+});
+
+//announcement
 Route::post('/upload-announcement', [AnnouncementController::class, 'upload']);
 Route::get('/download-announcement/{fileName}', [AnnouncementController::class, 'download']);
 

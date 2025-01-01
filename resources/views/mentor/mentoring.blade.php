@@ -51,7 +51,7 @@
                         </div>
                         <div id="file-list" class="mt-4 space-y-2"></div>
                     </div>
-        
+
                     <!-- Availability Section -->
                     <fieldset class="space-y-4">
                         <legend class="text-sm font-semibold text-gray-700">Availability</legend>
@@ -64,7 +64,7 @@
                             <input type="datetime-local" class="block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" />
                         </div>
                     </fieldset>
-        
+
                     <!-- Submission Types Section -->
                     <fieldset class="space-y-4">
                         <legend class="text-sm font-semibold text-gray-700">Submission types</legend>
@@ -95,7 +95,7 @@
                             </select>
                         </div>
                     </fieldset>
-        
+
                     <!-- Buttons -->
                     <div class="flex justify-end space-x-4">
                         <button type="button" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">Cancel</button>
@@ -126,137 +126,105 @@
             </div>
         </div>
 
-        <!-- Sesi 1 -->
+        <!-- Sesi -->
+        @foreach ($modules as $key => $module)
         <div class="accordion-item outline-2 outline outline-gray-200 rounded-lg mb-6">
             <h2 class="accordion-header">
                 <button class="accordion-button w-full text-left bg-white p-4 flex items-center focus:outline-none"
-                    type="button" data-target="#sesi1">
+                    type="button" data-target="#module{{ $key }}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="31" viewBox="0 0 30 31"
                         fill="none" class="accordion-icon transition-transform duration-300">
                         <circle cx="15" cy="15.5" r="14" stroke="black" stroke-width="1.5" />
                         <path d="M11 6 L19 15.5 L11 25" stroke="black" stroke-width="1.875" stroke-linecap="round"
                             stroke-linejoin="round" class="arrow-path" />
                     </svg>
-                    <span class="text-lg font-semibold ml-2">Sesi 1</span>
+                    <span class="text-lg font-semibold ml-2">{{ $module->module_title }}</span>
                 </button>
             </h2>
-            <div id="sesi1" class="accordion-collapse hidden">
+            <div id="module{{ $key }}" class="accordion-collapse hidden">
                 <div class="accordion-body p-4">
-                    <p class="mb-4">
-                        Assalamu'alaikum Wr. Wb.<br>
-                        Salam sehat dan bahagia selalu...<br><br>
-                        Mata kuliah Kewirausahaan Berbasis Program Studi pertemuan pertama akan membahas kontrak
-                        perkuliahan dan Pemahaman Dasar Kewirausahaan.
-                    </p>
-                    <p class="mb-4">
-                        Pada pertemuan ini juga akan membahas Teori dan Konsep Kewirausahaan: Definisi, karakteristik
-                        wirausahawan, dan peran kewirausahaan dalam perekonomian, Sejarah dan Perkembangan
-                        Kewirausahaan: Evolusi kewirausahaan dalam industri teknologi, Tren Kewirausahaan Teknologi:
-                        Studi kasus startup teknologi di Indonesia dan global.
-                    </p>
-                    <p class="mb-4">
-                        Silakan unduh dokumen kontrak perkuliahan dan materi Pemahaman Dasar Kewirausahaan...!
-                    </p>
-                    <div class="mt-4">
-                        <a href="#" class="flex items-center gap-2 text-blue-500 hover:underline">
-                            <img src="/images/pdf-icon.svg" alt="PDF Icon" class="w-5 h-5">
-                            Tugas Sesi 1 - Kumpulkan tugas dalam bentuk PDF
-                        </a>
-                    </div>
+                    <p>{{ $module->content }}</p>
+                    @if (!empty($module->module_file_url))
+                    <a href="{{ $module->module_file_url }}" class="text-blue-500 hover:underline flex items-center gap-2">
+                        <img src="/images/pdf-icon.svg" alt="PDF Icon" class="w-5 h-5">
+                        Download Module
+                    </a>
+                    @else
+                    <br>
+                    @endif
                 </div>
             </div>
         </div>
+        @endforeach
 
-        <!-- Sesi 2 -->
-        <div class="accordion-item outline-2 outline outline-gray-200 rounded-lg mb-6">
-            <h2 class="accordion-header">
-                <button class="accordion-button w-full text-left bg-white p-4 flex items-center focus:outline-none"
-                    type="button" data-target="#sesi2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="31" viewBox="0 0 30 31"
-                        fill="none" class="accordion-icon transition-transform duration-300">
-                        <circle cx="15" cy="15.5" r="14" stroke="black" stroke-width="1.5" />
-                        <path d="M11 6 L19 15.5 L11 25" stroke="black" stroke-width="1.875" stroke-linecap="round"
-                            stroke-linejoin="round" class="arrow-path" />
-                    </svg>
-                    <span class="text-lg font-semibold ml-2">Sesi 2</span>
-                </button>
-            </h2>
-            <div id="sesi2" class="accordion-collapse hidden">
-                <div class="accordion-body p-4">
-                    <p>Konten sesi 2 akan ditambahkan di sini.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
-<script>
-    document.querySelectorAll('.accordion-button').forEach(button => {
-        button.addEventListener('click', function() {
-            const target = document.querySelector(this.getAttribute('data-target'));
-            const icon = this.querySelector('.accordion-icon');
+        <script>
+            document.querySelectorAll('.accordion-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const target = document.querySelector(this.getAttribute('data-target'));
+                    const icon = this.querySelector('.accordion-icon');
 
-            // Toggle visibility of the content
-            target.classList.toggle('hidden');
+                    // Toggle visibility of the content
+                    target.classList.toggle('hidden');
 
-            // Rotate the icon
-            if (target.classList.contains('hidden')) {
-                icon.style.transform = 'rotate(0deg)'; // Panah ke kanan
-            } else {
-                icon.style.transform = 'rotate(90deg)'; // Panah ke bawah
-            }
-        });
-    });
-    document.querySelector('.add-form-button').addEventListener('click', function () {
-        const formContainer = document.getElementById('general');
-        formContainer.classList.toggle('hidden');
-    });
+                    // Rotate the icon
+                    if (target.classList.contains('hidden')) {
+                        icon.style.transform = 'rotate(0deg)'; // Panah ke kanan
+                    } else {
+                        icon.style.transform = 'rotate(90deg)'; // Panah ke bawah
+                    }
+                });
+            });
+            document.querySelector('.add-form-button').addEventListener('click', function() {
+                const formContainer = document.getElementById('general');
+                formContainer.classList.toggle('hidden');
+            });
 
-    const fileUploadArea = document.getElementById('file-upload-area');
-    const fileInput = document.getElementById('file-input');
-    const fileList = document.getElementById('file-list');
-    const uploadMessage = document.getElementById('upload-message');
+            const fileUploadArea = document.getElementById('file-upload-area');
+            const fileInput = document.getElementById('file-input');
+            const fileList = document.getElementById('file-list');
+            const uploadMessage = document.getElementById('upload-message');
 
-    // Open file dialog when area is clicked
-    fileUploadArea.addEventListener('click', () => {
-        fileInput.click();
-    });
+            // Open file dialog when area is clicked
+            fileUploadArea.addEventListener('click', () => {
+                fileInput.click();
+            });
 
-    // Handle file input change
-    fileInput.addEventListener('change', (event) => {
-        handleFiles(event.target.files);
-    });
+            // Handle file input change
+            fileInput.addEventListener('change', (event) => {
+                handleFiles(event.target.files);
+            });
 
-    // Handle drag and drop
-    fileUploadArea.addEventListener('dragover', (event) => {
-        event.preventDefault();
-        fileUploadArea.classList.add('border-blue-500');
-    });
+            // Handle drag and drop
+            fileUploadArea.addEventListener('dragover', (event) => {
+                event.preventDefault();
+                fileUploadArea.classList.add('border-blue-500');
+            });
 
-    fileUploadArea.addEventListener('dragleave', () => {
-        fileUploadArea.classList.remove('border-blue-500');
-    });
+            fileUploadArea.addEventListener('dragleave', () => {
+                fileUploadArea.classList.remove('border-blue-500');
+            });
 
-    fileUploadArea.addEventListener('drop', (event) => {
-        event.preventDefault();
-        fileUploadArea.classList.remove('border-blue-500');
-        const files = event.dataTransfer.files;
-        handleFiles(files);
-    });
+            fileUploadArea.addEventListener('drop', (event) => {
+                event.preventDefault();
+                fileUploadArea.classList.remove('border-blue-500');
+                const files = event.dataTransfer.files;
+                handleFiles(files);
+            });
 
-    // Function to handle files
-    function handleFiles(files) {
-        fileList.innerHTML = ''; // Clear existing file list
-        Array.from(files).forEach((file) => {
-            const fileItem = document.createElement('div');
-            fileItem.className = 'flex items-center space-x-2';
-            fileItem.innerHTML = `
+            // Function to handle files
+            function handleFiles(files) {
+                fileList.innerHTML = ''; // Clear existing file list
+                Array.from(files).forEach((file) => {
+                    const fileItem = document.createElement('div');
+                    fileItem.className = 'flex items-center space-x-2';
+                    fileItem.innerHTML = `
                 <span class="text-sm text-gray-700">${file.name}</span>
                 <span class="text-xs text-gray-500">(${(file.size / 1024).toFixed(2)} KB)</span>
             `;
-            fileList.appendChild(fileItem);
-        });
-        uploadMessage.textContent = 'Files added successfully!';
-    }
-</script>
-@endsection
+                    fileList.appendChild(fileItem);
+                });
+                uploadMessage.textContent = 'Files added successfully!';
+            }
+        </script>
+        @endsection

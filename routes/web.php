@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AnnouncementController as AnnouncementController;
 use App\Http\Controllers\Admin\DashboardAdminController as DashboardAdminController;
 use App\Http\Controllers\Home\HomeController as HomeController;
 use App\Http\Controllers\MyCourse\MyCourseController as MyCourseController;
+use App\Http\Controllers\MyCourseMentor\MyCourseMentorController as MyCourseMentorController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\LogbookController;
@@ -61,7 +62,7 @@ Route::prefix('admin')->group(function () {
 
 //mentor
 Route::prefix('mentor')->group(function () {
-    Route::view('/mentoring', 'mentor.mentoring ')->name('mentor.mentoring');
+    Route::get('/mentoring/{slug}', [MyCourseMentorController::class, 'index'])->name('mentor.mentoring');
     Route::get('/home',  [HomeController::class, 'index'])->name('courses.index');
     Route::post('/logbook', [LogbookController::class, 'add'])->name('logbook.add');
     Route::get('/logbook', [LogbookController::class, 'indexByCourse'])->name('logbook.show');
@@ -73,6 +74,6 @@ Route::get('/download-announcement/{fileName}', [AnnouncementController::class, 
 
 Route::get('/dashboard', function () {
     return view('mentee.dashboard');
-})->middleware('auth')->name('mentee.dashboard');
+})->middleware('auth')->name('dashboard');
 
 Route::view('/not-mentor', 'mentee.notMentor')->name('notMentor');

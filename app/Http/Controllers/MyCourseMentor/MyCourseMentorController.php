@@ -1,13 +1,26 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\MyCourseMentor;
 
 use App\Http\Controllers\Controller;
+use App\Models\Course;
 use App\Models\Module;
 use Illuminate\Http\Request;
 
 class MyCourseMentorController extends Controller
 {
+    // Get all modules by course slug
+    public function index($slug)
+    {
+        $course = Course::where('course_slug', $slug)->firstOrFail();
+        $modules = Module::where('course_id', $course->course_id)->get();
+
+        // return response()->json([
+        //     'data' => $modules
+        // ]);
+        return view('mentor.mentoring', compact('modules', 'course'));
+    }
+
     // Add new module
     public function store(Request $request)
     {

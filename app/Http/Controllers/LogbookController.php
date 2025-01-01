@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\CourseUser;
 use App\Models\Report;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,7 +28,12 @@ class LogbookController extends Controller
             return redirect()->route('notMentor');
         }
 
-        $courses = Course::where('mentor_id', $user->id)->firstOrFail();
+        $enrollCheck = CourseUser::where('user_id', $user->id)->first();
+        if (empty($enrollCheck)) {
+            return redirect()->route('notMentor');
+        }
+
+        $courses = Course::where('mentor_id', $user->id)->first();
 
         $reports = Report::where('user_id', $user->id)
             ->where('course_id', $courses->course_id)

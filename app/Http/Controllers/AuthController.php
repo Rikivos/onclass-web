@@ -39,7 +39,7 @@ class AuthController extends Controller
                 return redirect()->route('dashboard')->with('success', 'Login berhasil!');
             }
             if ($role === 'mentor') {
-                return redirect()->route('mentee.dashboard')->with('success', 'Login berhasil!');
+                return redirect()->route('dashboard')->with('success', 'Login berhasil!');
             } else {
                 return redirect()->route('admin.dashboard')->with('success', 'Login berhasil!');
             }

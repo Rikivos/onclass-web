@@ -23,8 +23,8 @@ class LogbookController extends Controller
             return redirect()->route('login');
         }
 
-        if (!in_array($user->role, ['admin', 'mentor'])) {
-            return redirect()->route('courses.index');
+        if (!in_array($user->role, ['petugas', 'mentor'])) {
+            return redirect()->route('notMentor');
         }
 
         $courses = Course::where('mentor_id', $user->id)->firstOrFail();

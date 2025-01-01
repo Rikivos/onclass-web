@@ -61,11 +61,8 @@ Route::prefix('admin')->group(function () {
 
 //mentor
 Route::prefix('mentor')->group(function () {
-    Route::view('/dashboard', 'mentor.dashboard ')->name('mentor.dashboard');
+    Route::view('/mentoring', 'mentor.mentoring ')->name('mentor.mentoring');
     Route::get('/home',  [HomeController::class, 'index'])->name('courses.index');
-    Route::get('/mycourse', [MyCourseController::class, 'index'])->name('mycourse');
-    Route::get('/mycourse/{slug}', [MyCourseController::class, 'showDetail'])->name('courses.show');
-    Route::get('/mycourse/participant/{slug}', [MyCourseController::class, 'showParticipant'])->name('participant');
     Route::post('/logbook', [LogbookController::class, 'add'])->name('logbook.add');
     Route::get('/logbook', [LogbookController::class, 'indexByCourse'])->name('logbook.show');
 });
@@ -78,6 +75,4 @@ Route::get('/dashboard', function () {
     return view('mentee.dashboard');
 })->middleware('auth')->name('mentee.dashboard');
 
-Route::get('/mentoring', function () {
-    return view('mentoring');
-})->middleware('auth');
+

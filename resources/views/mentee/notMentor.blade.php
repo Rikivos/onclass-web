@@ -7,10 +7,10 @@
         <h1 class="text-3xl font-bold mb-4">Logbook</h1>
     </div>
 
-    <!-- Announcement Section -->
+    <!-- logbook Section -->
     <div class="bg-white shadow rounded-lg p-6 mb-8">
         <div class=" items-center gap-4 bg-[#cce6ea] p-8 rounded-lg border border-gray-200" >
-            <!-- Announcement Content -->
+            <!-- logbook Content -->
                 <div class="flex items-center gap-4">
                     <p class="text-black font-bold text-2xl">Bagian ini hanya untuk mentor</p>
                 </div>
@@ -19,6 +19,5 @@
                 </button>
         </div>
     </div>
-    <!-- Group List Section -->
 </div>
 @endsection

@@ -30,7 +30,7 @@ class LogbookController extends Controller
 
         $enrollCheck = CourseUser::where('user_id', $user->id)->first();
         if (empty($enrollCheck)) {
-            return redirect()->route('notMentor');
+            return view('mentor.emptyCourse');
         }
 
         $courses = Course::where('mentor_id', $user->id)->first();

@@ -35,8 +35,7 @@ Route::get('/enroll/{slug}', [CourseController::class, 'view'])->name('enroll');
 Route::post('/enroll/{slug}')->name('enroll.post');
 
 //logbook
-Route::post('/logbook', [LogbookController::class, 'add'])->name('logbook.add');
-Route::get('/logbook', [LogbookController::class, 'indexByCourse'])->name('logbook.show');
+
 
 
 //Admin start
@@ -60,15 +59,20 @@ Route::prefix('admin')->group(function () {
 });
 //end admin
 
-//announcement 
+//mentor
+Route::prefix('mentor')->group(function () {
+    Route::view('/mentoring', 'mentor.mentoring ')->name('mentor.mentoring');
+    Route::get('/home',  [HomeController::class, 'index'])->name('courses.index');
+    Route::post('/logbook', [LogbookController::class, 'add'])->name('logbook.add');
+    Route::get('/logbook', [LogbookController::class, 'indexByCourse'])->name('logbook.show');
+});
+
+//announcement
 Route::post('/upload-announcement', [AnnouncementController::class, 'upload']);
 Route::get('/download-announcement/{fileName}', [AnnouncementController::class, 'download']);
 
 Route::get('/dashboard', function () {
     return view('mentee.dashboard');
-})->middleware('auth');
+})->middleware('auth')->name('mentee.dashboard');
 
-Route::get('/mentoring', function () {
-    return view('mentoring');
-})->middleware('auth');
 

@@ -15,9 +15,6 @@ class MyCourseMentorController extends Controller
         $course = Course::where('course_slug', $slug)->firstOrFail();
         $modules = Module::where('course_id', $course->course_id)->get();
 
-        // return response()->json([
-        //     'data' => $modules
-        // ]);
         return view('mentor.mentoring', compact('modules', 'course'));
     }
 

@@ -15,23 +15,12 @@
                 <li>
                     <a href="/dashboard" class="text-gray-600 hover:text-black {{ request()->is('dashboard') ? 'text-black font-semibold' : '' }}">Dashboard</a>
                 </li>
-                @if(request()->is('mentor/*'))
-                    <li>
-                        <a href="" class="text-gray-600 hover:text-black {{ request()->is('mentor/mycourse') ? 'text-black font-semibold' : '' }}">Mentoring</a>
-                    </li>
-                    <li>
-                        <a href="" class="text-gray-600 hover:text-black {{ request()->is('mentor/logbook') ? 'text-black font-semibold' : '' }}">Logbook</a>
-                    </li>
-                @else
-                    <li>
-                        <a href="{{ route('mycourse') }}" class="text-gray-600 hover:text-black {{ request()->is('mycourse') ? 'text-black font-semibold' : '' }}">Mentoring</a>
-                    </li>
-                    @if(!request()->is('/') && !request()->is('dashboard') && !request()->is('mentoring') && !request()->is('mycourse') && !request()->is('mycourse/*'))
-                        <li>
-                            <a href="{{ route('logbook.show') }}" class="text-gray-600 hover:text-black {{ request()->is('logbook') ? 'text-black font-semibold' : '' }}">Logbook</a>
-                        </li>
-                    @endif
-                @endif
+                <li>
+                    <a href="{{ route('mycourse') }}" class="text-gray-600 hover:text-black {{ request()->is('mycourse') ? 'text-black font-semibold' : '' }}">Mentoring</a>
+                </li>
+                <li>
+                    <a href="{{ route('logbook.show') }}" class="text-gray-600 hover:text-black {{ request()->is('logbook') ? 'text-black font-semibold' : '' }}">Logbook</a>
+                </li>
             @endif
         </ul>
         

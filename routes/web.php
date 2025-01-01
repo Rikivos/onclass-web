@@ -75,4 +75,4 @@ Route::get('/dashboard', function () {
     return view('mentee.dashboard');
 })->middleware('auth')->name('mentee.dashboard');
 
-
+Route::view('/not-mentor', 'mentee.notMentor')->name('notMentor');

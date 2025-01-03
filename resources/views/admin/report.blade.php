@@ -40,7 +40,7 @@
             <!-- Pencarian -->
             <div class="flex justify-end items-center mb-4">
                 <div class="relative">
-                    <input type="text" placeholder="Cari data" aria-label="Search"
+                    <input type="text" placeholder="Search" aria-label="Search"
                         class="border rounded-md px-3 py-2 pl-10">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="w-5 h-5 absolute top-2.5 left-3 text-gray-500">

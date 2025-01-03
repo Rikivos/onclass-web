@@ -105,27 +105,6 @@
             </div>
         </div>
 
-        <!-- General Section -->
-        <div class="accordion-item outline outline-2 outline-gray-200 rounded-lg mb-6">
-            <h2 class="accordion-header">
-                <button class="accordion-button w-full text-left bg-white p-4 flex items-center focus:outline-none"
-                    type="button" data-target="#general">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="31" viewBox="0 0 30 31"
-                        fill="none" class="accordion-icon transition-transform duration-300">
-                        <circle cx="15" cy="15.5" r="14" stroke="black" stroke-width="1.5" />
-                        <path d="M11 6 L19 15.5 L11 25" stroke="black" stroke-width="1.875" stroke-linecap="round"
-                            stroke-linejoin="round" class="arrow-path" />
-                    </svg>
-                    <span class="text-lg font-semibold ml-2">General</span>
-                </button>
-            </h2>
-            <div id="general" class="accordion-collapse hidden">
-                <div class="accordion-body p-4">
-                    <p>Konten sesi 2 akan ditambahkan di sini.</p>
-                </div>
-            </div>
-        </div>
-
         <!-- Sesi -->
         @foreach ($modules as $key => $module)
         <div class="accordion-item outline-2 outline outline-gray-200 rounded-lg mb-6">

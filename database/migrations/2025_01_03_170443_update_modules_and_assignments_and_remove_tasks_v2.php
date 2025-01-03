@@ -11,6 +11,8 @@ return new class extends Migration
         Schema::table('assignments', function (Blueprint $table) {
             $table->dropForeign(['task_id']);
             $table->dropColumn('task_id');
+            $table->dropColumn('status');
+            $table->dropColumn('deadline');
         });
 
         Schema::dropIfExists('tasks');
@@ -21,8 +23,6 @@ return new class extends Migration
         });
 
         Schema::table('assignments', function (Blueprint $table) {
-            $table->dropForeign(['task_id']);
-            $table->dropColumn('task_id');
             $table->string('file')->nullable()->change();
             $table->text('text')->nullable()->after('file');
             $table->unsignedBigInteger('module_id')->after('assignment_date');

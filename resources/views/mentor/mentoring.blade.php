@@ -126,9 +126,27 @@
         button.addEventListener('click', function() {
             const target = document.querySelector(this.getAttribute('data-target'));
             const icon = this.querySelector('.accordion-icon');
-
+            fileUploadArea.addEventListener('drop', (event) => {
+                event.preventDefault();
+                fileUploadArea.classList.remove('border-blue-500');
+                const files = event.dataTransfer.files;
+                handleFiles(files);
+            });
             // Toggle visibility of the content
             target.classList.toggle('hidden');
+            // Function to handle files
+            function handleFiles(files) {
+                fileList.innerHTML = ''; // Clear existing file list
+                Array.from(files).forEach((file) => {
+                    const fileItem = document.createElement('div');
+                    fileItem.className = 'flex items-center space-x-2';
+                    fileItem.innerHTML = `
+                <span class="text-sm text-gray-700">${file.name}</span>
+                <span class="text-xs text-gray-500">(${(file.size / 1024).toFixed(2)} KB)</span>
+            `;
+                    fileList.appendChild(fileItem);
+                });
+                uploadMessage.textContent = 'Files added successfully!';
 
             // Rotate the icon
             if (target.classList.contains('hidden')) {

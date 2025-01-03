@@ -74,11 +74,12 @@
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700">File</label>
-                        <div id="file-upload-area" class="mt-1 flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-md p-4 cursor-pointer hover:border-blue-500">
+                        <div id="file-upload-area"
+                            class="mt-1 flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-md p-4 cursor-pointer hover:border-blue-500">
                             <span id="upload-message" class="text-gray-500">Drag and drop file here to add item</span>
-                            <input @change="handleFileChange" type="file" class="hidden" />
-                            <span x-text="fileName" class="mt-2 text-gray-700" x-show="fileName"></span>
+                            <input id="file-input" type="file" class="hidden" multiple>
                         </div>
+                        <div id="file-list" class="mt-4 space-y-2"></div>
                     </div>
 
                     <!-- Buttons -->
@@ -126,27 +127,9 @@
         button.addEventListener('click', function() {
             const target = document.querySelector(this.getAttribute('data-target'));
             const icon = this.querySelector('.accordion-icon');
-            fileUploadArea.addEventListener('drop', (event) => {
-                event.preventDefault();
-                fileUploadArea.classList.remove('border-blue-500');
-                const files = event.dataTransfer.files;
-                handleFiles(files);
-            });
+
             // Toggle visibility of the content
             target.classList.toggle('hidden');
-            // Function to handle files
-            function handleFiles(files) {
-                fileList.innerHTML = ''; // Clear existing file list
-                Array.from(files).forEach((file) => {
-                    const fileItem = document.createElement('div');
-                    fileItem.className = 'flex items-center space-x-2';
-                    fileItem.innerHTML = `
-                <span class="text-sm text-gray-700">${file.name}</span>
-                <span class="text-xs text-gray-500">(${(file.size / 1024).toFixed(2)} KB)</span>
-            `;
-                    fileList.appendChild(fileItem);
-                });
-                uploadMessage.textContent = 'Files added successfully!';
 
             // Rotate the icon
             if (target.classList.contains('hidden')) {
@@ -156,5 +139,56 @@
             }
         });
     });
+    document.querySelector('.add-form-button').addEventListener('click', function() {
+        const formContainer = document.getElementById('general');
+        formContainer.classList.toggle('hidden');
+    });
+
+    const fileUploadArea = document.getElementById('file-upload-area');
+    const fileInput = document.getElementById('file-input');
+    const fileList = document.getElementById('file-list');
+    const uploadMessage = document.getElementById('upload-message');
+
+    // Open file dialog when area is clicked
+    fileUploadArea.addEventListener('click', () => {
+        fileInput.click();
+    });
+
+    // Handle file input change
+    fileInput.addEventListener('change', (event) => {
+        handleFiles(event.target.files);
+    });
+
+    // Handle drag and drop
+    fileUploadArea.addEventListener('dragover', (event) => {
+        event.preventDefault();
+        fileUploadArea.classList.add('border-blue-500');
+    });
+
+    fileUploadArea.addEventListener('dragleave', () => {
+        fileUploadArea.classList.remove('border-blue-500');
+    });
+
+    fileUploadArea.addEventListener('drop', (event) => {
+        event.preventDefault();
+        fileUploadArea.classList.remove('border-blue-500');
+        const files = event.dataTransfer.files;
+        handleFiles(files);
+    });
+
+    // Function to handle files
+    function handleFiles(files) {
+        fileList.innerHTML = ''; // Clear existing file list
+        Array.from(files).forEach((file) => {
+            const fileItem = document.createElement('div');
+            fileItem.className = 'flex items-center space-x-2';
+            fileItem.innerHTML = `
+                <span class="text-sm text-gray-700">${file.name}</span>
+                <span class="text-xs text-gray-500">(${(file.size / 1024).toFixed(2)} KB)</span>
+            `;
+            fileList.appendChild(fileItem);
+        });
+        uploadMessage.textContent = 'Files added successfully!';
+    }
 </script>
 @endsection

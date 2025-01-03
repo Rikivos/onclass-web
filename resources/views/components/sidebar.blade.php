@@ -22,7 +22,7 @@
             </li>
             <li class="mb-4 flex items-center">
                 <i class="fas fa-chart-bar text-gray-500 mr-2"></i>
-                <a href="#" class="text-gray-700 hover:text-blue-600 font-medium">Laporan</a>
+                <a href="{{ route('admin.report') }}" class="text-gray-700 hover:text-blue-600 font-medium">Laporan</a>
             </li>
         </ul>
     </aside>

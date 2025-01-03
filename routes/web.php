@@ -57,6 +57,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/mentor', [AdminDataMentorController::class, 'getMentor'])->name('admin.mentor');
     Route::get('/class', [AdminDataCourseController::class, 'getAllCourse'])->name('admin.class');
     Route::view('/attendance', 'admin.attendance ')->name('admin.attendance');
+    Route::view('/report', 'admin.report')->name('admin.report');
 });
 //end admin
 

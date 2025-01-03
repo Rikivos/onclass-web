@@ -9,45 +9,11 @@
 </div>
 
 <div class="container mx-auto p-4">
-    <!-- Header Section -->
     <div class="text-left mb-8">
         <h1 class="text-3xl font-bold mb-4">Mentoring</h1>
     </div>
 
-    <!-- Accordion Section -->
-    <div class="accordion bg-white shadow rounded-lg p-6" x-data="{
-        showForm: false,
-        file: null,
-        fileName: '',
-        formData: {
-            module_title: '',
-            content: '',
-            course_id: '{{ $course->course_id }}',  // Automatically set from controller
-        },
-        submitForm() {
-            let formData = new FormData();
-            formData.append('module_title', this.formData.module_title);
-            formData.append('content', this.formData.content);
-            formData.append('course_id', this.formData.course_id);
-            if (this.file) {
-                formData.append('file_path', this.file);
-            }
-
-            axios.post('{{ route('module.store') }}', formData)
-                .then(response => {
-                    alert('Module created successfully');
-                    window.location.reload();
-                })
-                .catch(error => {
-                    console.error(error);
-                    alert('Error add module');
-                });
-        },
-        handleFileChange(event) {
-            this.file = event.target.files[0];
-            this.fileName = this.file ? this.file.name : '';
-        }
-    }">
+    <div x-data="mentoringForm" class="accordion bg-white shadow rounded-lg p-6">
         <div class="flex justify-end items-center mb-4">
             <button id="expandAllBtn" class="text-blue-500 hover:underline">Expand all</button>
         </div>
@@ -63,23 +29,26 @@
             </h2>
             <div x-show="showForm" class="accordion-collapse p-6 bg-white border-t">
                 <form @submit.prevent="submitForm" class="space-y-6">
-                    <!-- General Section -->
+                    <!-- Module Title -->
                     <div>
                         <label class="block text-sm font-medium text-gray-700">Module Title</label>
                         <input x-model="formData.module_title" type="text" class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" required />
                     </div>
+
+                    <!-- Description -->
                     <div>
                         <label class="block text-sm font-medium text-gray-700">Description</label>
                         <textarea x-model="formData.content" rows="4" class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" required></textarea>
                     </div>
+
+                    <!-- File Upload -->
                     <div>
                         <label class="block text-sm font-medium text-gray-700">File</label>
                         <div id="file-upload-area"
                             class="mt-1 flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-md p-4 cursor-pointer hover:border-blue-500">
-                            <span id="upload-message" class="text-gray-500">Drag and drop file here to add item</span>
-                            <input id="file-input" type="file" class="hidden" multiple>
+                            <input type="file" @change="handleFileChange" multiple>
                         </div>
-                        <div id="file-list" class="mt-4 space-y-2"></div>
+                        <p x-text="fileName" class="mt-2 text-sm text-gray-500"></p>
                     </div>
 
                     <!-- Buttons -->
@@ -91,14 +60,17 @@
             </div>
         </div>
 
-        <!-- Sesi -->
+        <!-- Existing Modules -->
         @foreach ($modules as $key => $module)
         <div class="accordion-item outline-2 outline outline-gray-200 rounded-lg mb-6">
             <h2 class="accordion-header">
-                <button class="accordion-button w-full text-left bg-white p-4 flex items-center focus:outline-none" type="button" data-target="#module{{ $key }}">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="31" viewBox="0 0 30 31" fill="none" class="accordion-icon transition-transform duration-300">
+                <button class="accordion-button w-full text-left bg-white p-4 flex items-center focus:outline-none"
+                    type="button" data-target="#module{{ $key }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="31" viewBox="0 0 30 31"
+                        fill="none" class="accordion-icon transition-transform duration-300">
                         <circle cx="15" cy="15.5" r="14" stroke="black" stroke-width="1.5" />
-                        <path d="M11 6 L19 15.5 L11 25" stroke="black" stroke-width="1.875" stroke-linecap="round" stroke-linejoin="round" class="arrow-path" />
+                        <path d="M11 6 L19 15.5 L11 25" stroke="black" stroke-width="1.875" stroke-linecap="round"
+                            stroke-linejoin="round" class="arrow-path" />
                     </svg>
                     <span class="text-lg font-semibold ml-2">{{ $module->module_title }}</span>
                 </button>
@@ -106,7 +78,7 @@
             <div id="module{{ $key }}" class="accordion-collapse hidden">
                 <div class="accordion-body p-4">
                     <p>{{ $module->content }}</p>
-                    @if (!empty($module->module_file_url))
+                    @if (!empty($module->file_path))
                     <a href="{{ $module->module_file_url }}" class="text-blue-500 hover:underline flex items-center gap-2">
                         <img src="/images/pdf-icon.svg" alt="PDF Icon" class="w-5 h-5">
                         Download Module
@@ -118,11 +90,56 @@
             </div>
         </div>
         @endforeach
-
     </div>
 </div>
 
 <script>
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('mentoringForm', () => ({
+            showForm: false,
+            file: null,
+            fileName: '',
+            formData: {
+                module_title: '',
+                content: '',
+                course_id: '{{ $course->course_id }}',
+            },
+            handleFileChange(event) {
+                const files = event.target.files;
+                if (files.length > 0) {
+                    this.file = files[0];
+                    this.fileName = this.file.name;
+                } else {
+                    this.file = null;
+                    this.fileName = '';
+                }
+            },
+            async submitForm() {
+                try {
+                    const formData = new FormData();
+                    formData.append('module_title', this.formData.module_title);
+                    formData.append('content', this.formData.content);
+                    formData.append('course_id', this.formData.course_id);
+                    if (this.file) {
+                        formData.append('file_path', this.file);
+                    }
+
+                    const response = await axios.post('{{ route("module.store") }}', formData, {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        },
+                    });
+
+                    alert('Module created successfully');
+                    window.location.reload();
+                } catch (error) {
+                    console.error(error);
+                    alert('An error occurred');
+                }
+            },
+        }));
+    });
+
     document.querySelectorAll('.accordion-button').forEach(button => {
         button.addEventListener('click', function() {
             const target = document.querySelector(this.getAttribute('data-target'));
@@ -139,27 +156,7 @@
             }
         });
     });
-    document.querySelector('.add-form-button').addEventListener('click', function() {
-        const formContainer = document.getElementById('general');
-        formContainer.classList.toggle('hidden');
-    });
 
-    const fileUploadArea = document.getElementById('file-upload-area');
-    const fileInput = document.getElementById('file-input');
-    const fileList = document.getElementById('file-list');
-    const uploadMessage = document.getElementById('upload-message');
-
-    // Open file dialog when area is clicked
-    fileUploadArea.addEventListener('click', () => {
-        fileInput.click();
-    });
-
-    // Handle file input change
-    fileInput.addEventListener('change', (event) => {
-        handleFiles(event.target.files);
-    });
-
-    // Handle drag and drop
     fileUploadArea.addEventListener('dragover', (event) => {
         event.preventDefault();
         fileUploadArea.classList.add('border-blue-500');
@@ -175,20 +172,5 @@
         const files = event.dataTransfer.files;
         handleFiles(files);
     });
-
-    // Function to handle files
-    function handleFiles(files) {
-        fileList.innerHTML = ''; // Clear existing file list
-        Array.from(files).forEach((file) => {
-            const fileItem = document.createElement('div');
-            fileItem.className = 'flex items-center space-x-2';
-            fileItem.innerHTML = `
-                <span class="text-sm text-gray-700">${file.name}</span>
-                <span class="text-xs text-gray-500">(${(file.size / 1024).toFixed(2)} KB)</span>
-            `;
-            fileList.appendChild(fileItem);
-        });
-        uploadMessage.textContent = 'Files added successfully!';
-    }
 </script>
 @endsection

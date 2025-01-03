@@ -21,22 +21,20 @@ class MyCourseMentorController extends Controller
     // Add new module
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
+        $request->validate([
             'module_title' => 'required|string|max:255',
             'content' => 'required|string',
             'course_id' => 'required|exists:courses,course_id',
             'file_path' => 'nullable|file',
         ]);
 
-        if ($request->hasFile('file_path')) {
-            $validatedData['file_path'] = $request->file('file_path')->store('modules', 'public');
-        }
+        $module = Module::create([
+            'module_title' => $request->module_title,
+            'content' => $request->content,
+            'course_id' => $request->course_id,
+            'file_path' => $request->file_path ? $request->file('file_path')->store('modules', 'public') : null,
+        ]);
 
-        $module = Module::create($validatedData);
-
-        return response()->json([
-            'message' => 'Module successfully created.',
-            'data' => $module,
-        ], 201);
+        return response()->json(['message' => 'Module successfully created.', 'data' => $module], 201);
     }
 }

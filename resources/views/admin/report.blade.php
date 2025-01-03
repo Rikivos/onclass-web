@@ -1,48 +1,58 @@
 @extends('layouts.app')
 
-@section('title', 'Dashboard')
+@section('title', 'Dashboard - Kehadiran Mentoring')
 
 @section('content')
-<div class="flex  bg-gray-200">
+<div class="flex bg-gray-200">
     <!-- Sidebar -->
     @include('components.sidebar')
 
     <!-- Data Content -->
-    <div class="w-3/4 p-4 justify-between items-center container mx-auto">
-            <!-- Table -->
-            <div class="bg-white shadow-md rounded-md p-4">
-                <!-- Judul -->
-                <h2 class="text-xl font-bold mb-4">Kehadiran Mentoring</h2>
+    <main class="w-3/4 p-4 container mx-auto">
+        <!-- Section: Kehadiran Mentoring -->
+        <section class="bg-white shadow-md rounded-md p-4">
+            <header class="mb-4">
+                <h1 class="text-xl font-bold">Kehadiran Mentoring</h1>
                 <hr class="my-6 border-b border-gray-300">
-                <div class="flex justify-end items-center mb-4">
-                    <label for="tahun" class="text-sm font-medium text-gray-700 mr-2">Tahun Akademik</label>
-                    <div class="relative">
-                        <input type="number" class="block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" value="2024" />
-                    </div>
+            </header>
+            
+            <!-- Tahun Akademik -->
+            <div class="flex justify-end items-center mb-4">
+                <label for="tahun" class="text-sm font-medium text-gray-700 mr-2">Tahun Akademik</label>
+                <div class="relative">
+                    <input id="tahun" type="number" name="tahun_akademik" aria-label="Tahun Akademik"
+                        class="block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                        value="2024" />
                 </div>
-                <button type="button" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Pilih</button>
+            </div>
+            <button type="button" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
+                Pilih
+            </button>
 
-                <div class="flex justify-start items-center mt-4 mb-4">
-                    <text class="text-md font-bold text-black mr-2">Keterangan</text>
-                </div>
-                <div class="flex justify-start items-center mb-4">
-                    <text class="text-md font-bold text-black mr-2">Untuk melihat rekap presensi dalam bentuk file pdf</text>
-                </div>
-                
-                <!-- Tombol Tambah dan Pencarian -->
-                <div class="flex justify-end items-center mb-4">
-                    <div class="relative">
-                        <input type="text" placeholder="Search" class="border rounded-md px-3 py-2 pl-10">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="w-5 h-5 absolute top-2.5 left-3 text-gray-500">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M21 21l-4.35-4.35m1.35-6.15a7.5 7.5 0 11-15 0 7.5 7.5 0 0115 0z" />
-                        </svg>
-                    </div>
-                </div>
+            <!-- Keterangan -->
+            <div class="mt-4 mb-4">
+                <p class="text-md font-bold text-black">Keterangan</p>
+                <ul class="list-disc list-inside text-black">
+                    <li>Untuk melihat rekap presensi dalam bentuk file PDF</li>
+                </ul>
+            </div>
 
-                <!-- Tabel -->
-                <table class="w-full table-auto">
+            <!-- Pencarian -->
+            <div class="flex justify-end items-center mb-4">
+                <div class="relative">
+                    <input type="text" placeholder="Cari data" aria-label="Search"
+                        class="border rounded-md px-3 py-2 pl-10">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-5 h-5 absolute top-2.5 left-3 text-gray-500">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M21 21l-4.35-4.35m1.35-6.15a7.5 7.5 0 11-15 0 7.5 7.5 0 0115 0z" />
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Tabel Kehadiran -->
+            <div class="overflow-x-auto">
+                <table class="w-full table-auto border-collapse border border-gray-200">
                     <thead>
                         <tr class="bg-gray-100">
                             <th class="text-left p-2">Kelompok</th>
@@ -53,11 +63,12 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="p-2"></td>
-                            <td class="p-2"></td>
-                            <td class="p-2"></td>
-                            <td class="p-2">
-                                <button class="bg-red-500 text-white px-4 py-2 rounded">
+                            <td class="text-left p-2">Kelompok A</td>
+                            <td class="text-left p-2">20</td>
+                            <td class="text-left p-2">Budi</td>
+                            <td class="text-left p-2">
+                                <button class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+                                    aria-label="Download Data">
                                     Download
                                 </button>
                             </td>
@@ -65,8 +76,8 @@
                     </tbody>
                 </table>
             </div>
-        </div>
-    </div>
+        </section>
+    </main>
 </div>
 <script>
 </script>

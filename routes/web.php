@@ -62,11 +62,13 @@ Route::prefix('admin')->group(function () {
 //end admin
 
 //mentor
+
 Route::prefix('mentor')->group(function () {
     Route::get('/mentoring/{slug}', [MyCourseMentorController::class, 'index'])->name('mentor.mentoring');
     Route::get('/home',  [HomeController::class, 'index'])->name('courses.index');
     Route::post('/logbook', [LogbookController::class, 'add'])->name('logbook.add');
     Route::get('/logbook', [LogbookController::class, 'indexByCourse'])->name('logbook.show');
+    Route::post('/module/store', [MyCourseMentorController::class, 'store'])->name('module.store');
 });
 
 //announcement

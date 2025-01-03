@@ -3,8 +3,10 @@
 use App\Http\Controllers\Admin\DataMentorController as AdminDataMentorController;
 use App\Http\Controllers\Admin\DataCourseController as AdminDataCourseController;
 use App\Http\Controllers\Admin\AnnouncementController as AnnouncementController;
+use App\Http\Controllers\Admin\DashboardAdminController as DashboardAdminController;
 use App\Http\Controllers\Home\HomeController as HomeController;
 use App\Http\Controllers\MyCourse\MyCourseController as MyCourseController;
+use App\Http\Controllers\MyCourseMentor\MyCourseMentorController as MyCourseMentorController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\LogbookController;
@@ -34,8 +36,7 @@ Route::get('/enroll/{slug}', [CourseController::class, 'view'])->name('enroll');
 Route::post('/enroll/{slug}')->name('enroll.post');
 
 //logbook
-Route::post('/logbook', [LogbookController::class, 'add'])->name('logbook.add');
-Route::get('/logbook', [LogbookController::class, 'indexByCourse'])->name('logbook.show');
+
 
 
 //Admin start
@@ -52,21 +53,27 @@ Route::post('/admin/course/update/{id}', [AdminDataCourseController::class, 'upd
 Route::delete('/admin/course/delete/{id}', [AdminDataCourseController::class, 'destroyCourse']);
 
 Route::prefix('admin')->group(function () {
-    Route::view('/dashboard', 'admin.dashboard')->name('admin.dashboard');
+    Route::get('/dashboard', [DashboardAdminController::class, 'index'], 'admin.dashboard')->name('admin.dashboard');
     Route::get('/mentor', [AdminDataMentorController::class, 'getMentor'])->name('admin.mentor');
     Route::get('/class', [AdminDataCourseController::class, 'getAllCourse'])->name('admin.class');
     Route::view('/attendance', 'admin.attendance ')->name('admin.attendance');
 });
 //end admin
 
-//announcement 
+//mentor
+Route::prefix('mentor')->group(function () {
+    Route::get('/mentoring/{slug}', [MyCourseMentorController::class, 'index'])->name('mentor.mentoring');
+    Route::get('/home',  [HomeController::class, 'index'])->name('courses.index');
+    Route::post('/logbook', [LogbookController::class, 'add'])->name('logbook.add');
+    Route::get('/logbook', [LogbookController::class, 'indexByCourse'])->name('logbook.show');
+});
+
+//announcement
 Route::post('/upload-announcement', [AnnouncementController::class, 'upload']);
 Route::get('/download-announcement/{fileName}', [AnnouncementController::class, 'download']);
 
 Route::get('/dashboard', function () {
     return view('mentee.dashboard');
-})->middleware('auth');
+})->middleware('auth')->name('dashboard');
 
-Route::get('/mentoring', function () {
-    return view('mentoring');
-})->middleware('auth');
+Route::view('/not-mentor', 'mentee.notMentor')->name('notMentor');
